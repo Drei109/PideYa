@@ -1,0 +1,65 @@
+﻿@model PideYa.Models.tipo_restaurante
+
+@{
+    ViewBag.Title = "Tipos | Editar";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <!--begin::Portlet-->
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            EDITAR TIPO DE RESTAURANTE
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            @using (Html.BeginForm("Edit", "TiposRestaurante", FormMethod.Post, new { @class = "m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.tipo_restaurante_id)
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group row">
+                        <label class="col-lg-2 col-form-label">
+                            @Html.LabelFor(m => m.descripcion, "Nombre:")
+                        </label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.descripcion, new
+                            {
+                                @class = "form-control m-input",
+                                placeholder = "Ingrese el nombre del tipo de restaurante",
+                                required = "required"
+                            })
+                            @Html.ValidationMessageFor(m => m.descripcion)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                    <div class="m-form__actions m-form__actions--solid">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-6">
+                                <button type="submit" class="btn btn-primary">
+                                    Editar
+                                </button>
+                                <a href="/Admin/TiposRestaurante/Index" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--end::Form-->
+        </div>
+        <!--end::Portlet-->
+    </div>
+</div>
