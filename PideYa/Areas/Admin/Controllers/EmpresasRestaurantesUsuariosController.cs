@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using PideYa.Models;
@@ -18,8 +14,8 @@ namespace PideYa.Areas.Admin.Controllers
         // GET: Admin/EmpresasRestaurantesUsuarios
         public ActionResult Index()
         {
-            var empresa_restaurante_usuario = _context.empresa_restaurante_usuario.Include(e => e.empresa).Include(e => e.restaurante);
-            return View(empresa_restaurante_usuario.ToList());
+            var empresaRestauranteUsuario = _context.empresa_restaurante_usuario.Include(e => e.empresa).Include(e => e.restaurante).Include(e => e.user);
+            return View(empresaRestauranteUsuario.ToList());
         }
 
         // GET: Admin/EmpresasRestaurantesUsuarios/Details/5

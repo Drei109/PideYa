@@ -217,6 +217,8 @@
     <Compile Include="Areas\Admin\Controllers\RestaurantesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TiposRestauranteController.cs" />
     <Compile Include="Areas\Manager\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Manager\Controllers\MesasController.cs" />
+    <Compile Include="Areas\Manager\Controllers\PlatosController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -228,6 +230,10 @@
     <Compile Include="Migrations\201806011838567_InitialModel.cs" />
     <Compile Include="Migrations\201806011838567_InitialModel.Designer.cs">
       <DependentUpon>201806011838567_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806201426294_userFK.cs" />
+    <Compile Include="Migrations\201806201426294_userFK.Designer.cs">
+      <DependentUpon>201806201426294_userFK.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -556,6 +562,16 @@
     <Content Include="Areas\Admin\Views\EmpresasRestaurantesUsuarios\Details.cshtml" />
     <Content Include="Areas\Admin\Views\EmpresasRestaurantesUsuarios\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\EmpresasRestaurantesUsuarios\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\platos\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\platos\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\platos\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\platos\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\platos\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\mesas\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\mesas\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\mesas\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\mesas\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\mesas\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -625,6 +641,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806011838567_InitialModel.resx">
       <DependentUpon>201806011838567_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201426294_userFK.resx">
+      <DependentUpon>201806201426294_userFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

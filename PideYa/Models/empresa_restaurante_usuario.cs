@@ -1,3 +1,5 @@
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace PideYa.Models
 {
     using System;
@@ -21,5 +23,8 @@ namespace PideYa.Models
         public virtual empresa empresa { get; set; }
 
         public virtual restaurante restaurante { get; set; }
+
+        [ForeignKey("usuarioASP_fk_Id")]
+        public virtual ApplicationUser user { get; set; }
     }
 }
