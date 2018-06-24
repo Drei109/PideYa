@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using PideYa.Models;
 
 namespace PideYa.Areas.Manager.Controllers
 {
     public class PlatosController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: Manager/platos
         public ActionResult Index()
         {
-            var plato = db.plato.Include(p => p.plato_categoria).Include(p => p.restaurante);
+            var plato = _db.plato.Include(p => p.plato_categoria).Include(p => p.restaurante);
             return View(plato.ToList());
         }
 
@@ -28,7 +26,7 @@ namespace PideYa.Areas.Manager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plato plato = db.plato.Find(id);
+            plato plato = _db.plato.Find(id);
             if (plato == null)
             {
                 return HttpNotFound();
@@ -39,8 +37,18 @@ namespace PideYa.Areas.Manager.Controllers
         // GET: Manager/platos/Create
         public ActionResult Create()
         {
-            ViewBag.categoria_plato_id_fk = new SelectList(db.plato_categoria, "plato_categoria_id", "nombre");
-            ViewBag.restaurante_id_fk = new SelectList(db.restaurante, "restaurante_id", "nombre");
+            if (System.Web.HttpContext.Current.User != null)
+            {
+                var user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                ViewBag.restaurante_id_fk = new SelectList(
+                    _db.empresa_restaurante_usuario.Include(r => r.restaurante).Where(m => m.usuarioASP_fk_Id == user).Select(res => res.restaurante).ToList(), 
+                    "restaurante_id", "nombre");
+            }
+            else
+            {
+                ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre");
+            }
+            ViewBag.categoria_plato_id_fk = new SelectList(_db.plato_categoria, "plato_categoria_id", "nombre");
             return View();
         }
 
@@ -53,13 +61,13 @@ namespace PideYa.Areas.Manager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.plato.Add(plato);
-                db.SaveChanges();
+                _db.plato.Add(plato);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.categoria_plato_id_fk = new SelectList(db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
-            ViewBag.restaurante_id_fk = new SelectList(db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
+            ViewBag.categoria_plato_id_fk = new SelectList(_db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
+            ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
             return View(plato);
         }
 
@@ -70,13 +78,13 @@ namespace PideYa.Areas.Manager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plato plato = db.plato.Find(id);
+            plato plato = _db.plato.Find(id);
             if (plato == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.categoria_plato_id_fk = new SelectList(db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
-            ViewBag.restaurante_id_fk = new SelectList(db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
+            ViewBag.categoria_plato_id_fk = new SelectList(_db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
+            ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
             return View(plato);
         }
 
@@ -89,12 +97,12 @@ namespace PideYa.Areas.Manager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(plato).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(plato).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.categoria_plato_id_fk = new SelectList(db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
-            ViewBag.restaurante_id_fk = new SelectList(db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
+            ViewBag.categoria_plato_id_fk = new SelectList(_db.plato_categoria, "plato_categoria_id", "nombre", plato.categoria_plato_id_fk);
+            ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre", plato.restaurante_id_fk);
             return View(plato);
         }
 
@@ -105,7 +113,7 @@ namespace PideYa.Areas.Manager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plato plato = db.plato.Find(id);
+            plato plato = _db.plato.Find(id);
             if (plato == null)
             {
                 return HttpNotFound();
@@ -118,9 +126,9 @@ namespace PideYa.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            plato plato = db.plato.Find(id);
-            db.plato.Remove(plato);
-            db.SaveChanges();
+            plato plato = _db.plato.Find(id);
+            _db.plato.Remove(plato ?? throw new InvalidOperationException());
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -128,7 +136,7 @@ namespace PideYa.Areas.Manager.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

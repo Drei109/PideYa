@@ -7,29 +7,43 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>mesa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurante.nombre)
-        </dt>
+@using(Html.BeginForm("GenerarCodigoQR","Mesas"))
+{
+    @Html.HiddenFor(mesa => mesa.mesa_id)
+    <div>
+        <h4>mesa</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.restaurante.nombre)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.restaurante.nombre)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.restaurante.nombre)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.estado)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.estado)
+            </dd>
+            <dd>
+                @if (File.Exists(Server.MapPath("~/Uploads/" + Model.mesa_id + ".png")))
+                {
+                    <img src="~/Uploads/@(Model.mesa_id).png" alt="Mesa @Model.mesa_id"/>
+                }
+                else
+                {
+                    <input type="submit" name="Generar" value="Generar Código QR" class="btn btn-default"/>
+                }
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.mesa_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.mesa_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

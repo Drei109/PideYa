@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using PideYa.Helpers;
 using PideYa.Models;
+// ReSharper disable InconsistentNaming
 
 namespace PideYa.Areas.Manager.Controllers
 {
     public class MesasController : Controller
     {
-        private ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: Manager/mesas
         public ActionResult Index()
@@ -28,7 +29,7 @@ namespace PideYa.Areas.Manager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            mesa mesa = _db.mesa.Find(id);
+            var mesa = _db.mesa.Find(id);
             if (mesa == null)
             {
                 return HttpNotFound();
@@ -39,7 +40,17 @@ namespace PideYa.Areas.Manager.Controllers
         // GET: Manager/mesas/Create
         public ActionResult Create()
         {
-            ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre");
+            if (System.Web.HttpContext.Current.User != null)
+            {
+                var user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                ViewBag.restaurante_id_fk = new SelectList(
+                    _db.empresa_restaurante_usuario.Include(r => r.restaurante).Where(m => m.usuarioASP_fk_Id == user).Select(res => res.restaurante).ToList(),
+                    "restaurante_id", "nombre");
+            }
+            else
+            {
+                ViewBag.restaurante_id_fk = new SelectList(_db.restaurante, "restaurante_id", "nombre");
+            }
             return View();
         }
 
@@ -52,8 +63,16 @@ namespace PideYa.Areas.Manager.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Add to DataBase
                 _db.mesa.Add(mesa);
                 _db.SaveChanges();
+
+                //Save QR code
+                var QRHelper = new QRCodeHelper();
+                var id = mesa.mesa_id;
+                var codeImage = QRHelper.GenerateQRCode(id.ToString(), 120);
+                codeImage.Save(Server.MapPath("~/Uploads/" + id + ".png"), ImageFormat.Png);
+
                 return RedirectToAction("Index");
             }
 
@@ -115,7 +134,7 @@ namespace PideYa.Areas.Manager.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             mesa mesa = _db.mesa.Find(id);
-            _db.mesa.Remove(mesa);
+            _db.mesa.Remove(mesa ?? throw new InvalidOperationException());
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -127,6 +146,17 @@ namespace PideYa.Areas.Manager.Controllers
                 _db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult GenerarCodigoQR(int mesa_id)
+        {
+            //Save QR code  
+            var QRHelper = new QRCodeHelper();
+            var codeImage = QRHelper.GenerateQRCode(mesa_id.ToString(), 120);
+            codeImage.Save(Server.MapPath("~/Uploads/" + mesa_id + ".png"), ImageFormat.Png);
+
+            return RedirectToAction("Index");
         }
     }
 }
