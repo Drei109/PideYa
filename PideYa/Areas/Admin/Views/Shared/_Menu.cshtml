@@ -11,7 +11,7 @@
             <i class="m-menu__section-icon"></i>
         </li>
         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-            <a href="/Admin/Empresas/Index" class="m-menu__link">
+            <a href="@Url.Action("Index", null, new { area = "Admin", controller = "Empresas" }, Request.Url?.Scheme)" class="m-menu__link">
                 <i class="m-menu__link-icon  flaticon-suitcase"></i>
                 <span class="m-menu__link-text">
                     Empresas
@@ -19,7 +19,7 @@
             </a>
         </li>
         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-            <a href="/Admin/Restaurantes/Index" class="m-menu__link">
+            <a href="@Url.Action("Index", null, new { area = "Admin", controller = "Restaurantes" }, Request.Url?.Scheme)" class="m-menu__link">
                 <i class="m-menu__link-icon  flaticon-layers"></i>
                 <span class="m-menu__link-text">
                     Restaurantes
@@ -27,19 +27,19 @@
             </a>
         </li>
         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-            <a href="/Admin/TiposRestaurante/Index" class="m-menu__link">
+            <a href="@Url.Action("Index", null, new { area = "Admin", controller = "TiposRestaurante" }, Request.Url?.Scheme)" class="m-menu__link">
                 <i class="m-menu__link-icon  flaticon-list-2 "></i>
                 <span class="m-menu__link-text">
                     Tipos Restaurante
                 </span>
             </a>
         </li><li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-            <a href="/Admin/EmpresasRestaurantesUsuarios/Index" class="m-menu__link">
-                <i class="m-menu__link-icon  flaticon-share  "></i>
-                <span class="m-menu__link-text">
-                    Empresa | Usuarios
-                </span>
-            </a>
+             <a href="@Url.Action("Index", null, new { area = "Admin", controller = "EmpresasRestaurantesUsuarios" }, Request.Url?.Scheme)" class="m-menu__link">
+                 <i class="m-menu__link-icon  flaticon-share  "></i>
+                 <span class="m-menu__link-text">
+                     Empresa | Usuarios
+                 </span>
+             </a>
         </li>
     </ul>
 </div>

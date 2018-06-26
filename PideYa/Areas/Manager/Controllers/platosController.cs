@@ -53,8 +53,6 @@ namespace PideYa.Areas.Manager.Controllers
         }
 
         // POST: Manager/platos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "plato_id,restaurante_id_fk,nombre,precio,categoria_plato_id_fk,descripcion,foto,estado")] plato plato)
@@ -89,8 +87,6 @@ namespace PideYa.Areas.Manager.Controllers
         }
 
         // POST: Manager/platos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "plato_id,restaurante_id_fk,nombre,precio,categoria_plato_id_fk,descripcion,foto,estado")] plato plato)
@@ -139,6 +135,21 @@ namespace PideYa.Areas.Manager.Controllers
                 _db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public JsonResult GetRestaurantDishes(int? id)
+        {
+            var platos = _db.plato.Where(m =>
+                    m.restaurante_id_fk == id &&
+                    m.estado != "Inactivo")
+                .Select(x => new
+                {
+                    id = x.plato_id,
+                    nombre = x.nombre + " => S/." + x.precio
+                })
+                .ToList();
+            return Json(platos, JsonRequestBehavior.AllowGet); ;
         }
     }
 }

@@ -1,0 +1,193 @@
+﻿@using PideYa.Areas.User.Models
+@model List<PideYa.Models.pedido_cabecera>
+@{
+    string Estado(string estadoPedido)
+    {
+        var estado = "";
+        if (estadoPedido == EstadoPedidoCabecera.Enviado)
+        {
+            estado = "success";
+        }
+        else if (estadoPedido == EstadoPedidoCabecera.Cancelado)
+        {
+            estado = "danger";
+        }
+        else if (estadoPedido == EstadoPedidoCabecera.Preparando)
+        {
+            estado = "warning";
+        }
+        return estado;
+    }
+}
+
+<div class="row ui-sortable" id="m_sortable_portlets">
+    <div class="col-lg-4">
+        @for (var i = 0; i < Model.Count; i += 3)
+        {
+            <!--begin::Portlet-->
+            <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-placeholder-2"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Mesa @Model[i].mesa_id_fk
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("CancelarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-remove"></i>
+                                </a>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("TerminarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-check"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="row font-weight-bold">
+                        <div class="col-6">Plato</div>
+                        <div class="col-3">Cant</div>
+                        <div class="col-3">Total</div>
+                    </div>
+                    @foreach (var t in Model[i].pedido_detalle)
+                    {
+                        <div class="row">
+                            <div class="col-6">@t.plato.nombre</div>
+                            <div class="col-3">@t.cantidad</div>
+                            <div class="col-3">@t.precio</div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-6"><b>Total :</b></div>
+                        <div class="col-3"></div>
+                        <div class="col-3"><b>@Model[i].precio_final</b></div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Portlet-->
+        }
+    </div>
+    <div class="col-lg-4">
+        @for (var i = 1; i < Model.Count; i += 3)
+        {
+            <!--begin::Portlet-->
+            <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-placeholder-2"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Mesa @Model[i].mesa_id_fk
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("CancelarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-remove"></i>
+                                </a>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("TerminarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-check"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="row font-weight-bold">
+                        <div class="col-6">Plato</div>
+                        <div class="col-3">Cant</div>
+                        <div class="col-3">Total</div>
+                    </div>
+                    @foreach (var t in Model[i].pedido_detalle)
+                    {
+                        <div class="row">
+                            <div class="col-6">@t.plato.nombre</div>
+                            <div class="col-3">@t.cantidad</div>
+                            <div class="col-3">@t.precio</div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-6"><b>Total :</b></div>
+                        <div class="col-3"></div>
+                        <div class="col-3"><b>@Model[i].precio_final</b></div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Portlet-->
+        }
+    </div>
+
+    <div class="col-lg-4">
+        @for (var i = 2; i < Model.Count; i += 3)
+        {
+            <!--begin::Portlet-->
+            <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-placeholder-2"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Mesa @Model[i].mesa_id_fk
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("CancelarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-remove"></i>
+                                </a>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <a href="@Url.Action("TerminarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+                                    <i class="la la-check"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="row font-weight-bold">
+                        <div class="col-6">Plato</div>
+                        <div class="col-3">Cant</div>
+                        <div class="col-3">Total</div>
+                    </div>
+                    @foreach (var t in Model[i].pedido_detalle)
+                    {
+                        <div class="row">
+                            <div class="col-6">@t.plato.nombre</div>
+                            <div class="col-3">@t.cantidad</div>
+                            <div class="col-3">@t.precio</div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-6"><b>Total :</b></div>
+                        <div class="col-3"></div>
+                        <div class="col-3"><b>@Model[i].precio_final</b></div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Portlet-->
+        }
+    </div>
+</div>

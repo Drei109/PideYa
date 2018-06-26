@@ -37,6 +37,21 @@ namespace PideYa.Areas.Manager.Controllers
             return View(mesa);
         }
 
+        [HttpGet]
+        public JsonResult GetRestaurantTables(int? id)
+        {
+            var mesas = _db.mesa.Where(m => 
+                m.restaurante_id_fk == id && 
+                m.estado != "Inactivo")
+                .Select(x => new
+                    {
+                        id = x.mesa_id,
+                        nombre = "Mesa " + x.mesa_id
+                    })
+                .ToList();
+            return Json(mesas, JsonRequestBehavior.AllowGet); ;
+        }
+
         // GET: Manager/mesas/Create
         public ActionResult Create()
         {
@@ -55,8 +70,6 @@ namespace PideYa.Areas.Manager.Controllers
         }
 
         // POST: Manager/mesas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "mesa_id,restaurante_id_fk,estado")] mesa mesa)
@@ -149,7 +162,7 @@ namespace PideYa.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        public ActionResult GenerarCodigoQR(int mesa_id)
+        public ActionResult GenerateQRCode(int mesa_id)
         {
             //Save QR code  
             var QRHelper = new QRCodeHelper();

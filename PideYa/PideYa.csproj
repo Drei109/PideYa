@@ -219,6 +219,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TiposRestauranteController.cs" />
+    <Compile Include="Areas\Manager\Controllers\ProcesosController.cs" />
     <Compile Include="Areas\User\Models\UserViewModels.cs" />
     <Compile Include="Areas\Manager\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manager\Controllers\MesasController.cs" />
@@ -585,7 +586,10 @@
     <Content Include="Areas\User\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\User\Views\Home\Index.cshtml" />
     <Content Include="Areas\User\Views\Shared\_Menu.cshtml" />
-    <Content Include="Areas\User\Views\Procesos\Pedido.cshtml" />
+    <Content Include="Areas\User\Views\Procesos\PedidoCabecera.cshtml" />
+    <Content Include="Areas\User\Views\Procesos\PedidoDetalle.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\Pedidos.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\Boleta.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

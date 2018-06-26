@@ -247,6 +247,7 @@
     <script src="~/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
     <script src="~/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
     <script src="~/assets/vendors/custom/jquery-ui/jquery-ui.bundle.js"></script>
+    <script src="~/assets/demo/default/custom/components/portlets/draggable.js" type="text/javascript"></script>
     <!--end::Base Scripts -->
     <!--begin::Page Vendors -->
     @*<script src="~/assets/demo/default/custom/crud/metronic-datatable/base/html-table.js" type="text/javascript"></script>*@
@@ -257,18 +258,6 @@
     <script src="~/assets/demo/default/custom/crud/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
     <!--end::Page Snippets -->
     <!-- DatePicker -->
-    <script>
-        $.fn.datepicker.defaults.format = "dd/mm/yyyy";
-        var BootstrapTimepicker = {
-            init: function () {
-                $("#m_timepicker_1, #m_timepicker_1_modal").timepicker(),
-                    $("#m_timepicker_2, #m_timepicker_2_modal").timepicker({ minuteStep: 1, defaultTime: "", showSeconds: !0, showMeridian: !1, snapToStep: !0 }),
-                    $("#m_timepicker_3, #m_timepicker_3_modal").timepicker({ defaultTime: "11:45:20 AM", minuteStep: 1, showSeconds: !0, showMeridian: !0 }),
-                    $("#m_timepicker_4, #m_timepicker_4_modal").timepicker({ defaultTime: "10:30:20 AM", minuteStep: 1, showSeconds: !0, showMeridian: !0 }),
-                    $("#m_timepicker_1_validate, #m_timepicker_2_validate, #m_timepicker_3_validate").timepicker({ minuteStep: 1, showSeconds: !0, showMeridian: !1, snapToStep: !0 });
-            }
-        }; jQuery(document).ready(function () { BootstrapTimepicker.init() });
-    </script>
     <!-- CUSTOM AUTOCOMPLETE JQUERY UI -->
     <script src="~/assets/app/custom_admin.js"></script>
     <!-- end::AUTOCOMPLETE -->

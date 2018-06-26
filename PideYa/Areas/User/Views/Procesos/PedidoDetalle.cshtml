@@ -1,0 +1,80 @@
+﻿@model PideYa.Areas.User.Models.PedidoViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Pedido</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m.PedidoCabecera.pedido_cabecera_id)
+        <div class="form-group">
+            <label>Restaurante :</label>
+            <div class="col-md-10">
+                @Html.HiddenFor(m => m.Restaurante.restaurante_id)
+                @Html.TextBoxFor(m => m.Restaurante.nombre, null, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Plato :</label>
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.PedidoDetalle.plato_id_fk)
+                @Html.TextBox("pedido_detalle_platos_search", "", new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.PedidoDetalle.plato_id_fk)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Cantidad :</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PedidoDetalle.cantidad, "", new { @class = "form-control", @type="number", @max = 10, @min = 0})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" formaction="GuardarDetalle" class="btn btn-default" />
+                <input type="submit" value="Finalizar" formaction="TerminarPedido" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var detalle in Model.PedidoDetalleList)
+    {
+        <tr>
+            <td>@detalle.pedido_detalle_id</td>
+            <td>@detalle.plato.nombre</td>
+            <td>@detalle.cantidad</td>
+            <td>@detalle.precio</td>
+            <td>@(detalle.precio * detalle.cantidad)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+    
+<p><b>Total: @Model.PedidoCabecera.precio_final</b></p>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+</body>
+</html>

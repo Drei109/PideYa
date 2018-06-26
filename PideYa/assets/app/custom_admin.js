@@ -96,4 +96,53 @@
         .focus(function () {
             $(this).autocomplete('search', ' ');
         });
+
+    // User/Procesos/Pedido
+    $("#mesa_pedido_cabecera_search").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Manager/Mesas/GetRestaurantTables/",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term, id: $("#restaurante_id").val(), maxResults: 10 },
+                    minLength: 0,
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.nombre, value: item.nombre, id: item.id };
+                            }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $("#PedidoCabecera_mesa_id_fk").val(ui.item.id);
+            }
+        })
+        .focus(function () {
+            $(this).autocomplete("search", " ");
+        });
+
+    $("#pedido_detalle_platos_search").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Manager/Platos/GetRestaurantDishes/",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term, id: $("#Restaurante_restaurante_id").val(), maxResults: 10 },
+                    minLength: 0,
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.nombre, value: item.nombre, id: item.id };
+                            }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $("#PedidoDetalle_plato_id_fk").val(ui.item.id);
+            }
+        })
+        .focus(function () {
+            $(this).autocomplete("search", " ");
+        });
 });
