@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201806270335416_Columns added to BoletaCabecera.Designer.cs">
       <DependentUpon>201806270335416_Columns added to BoletaCabecera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806272248565_column in plato changed.cs" />
+    <Compile Include="Migrations\201806272248565_column in plato changed.Designer.cs">
+      <DependentUpon>201806272248565_column in plato changed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\boleta_cabecera.cs" />
@@ -657,7 +661,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\User\Views\Pedido\" />
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\Platos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -687,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806270335416_Columns added to BoletaCabecera.resx">
       <DependentUpon>201806270335416_Columns added to BoletaCabecera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806272248565_column in plato changed.resx">
+      <DependentUpon>201806272248565_column in plato changed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

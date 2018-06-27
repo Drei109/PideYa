@@ -1,53 +1,76 @@
 ﻿@model PideYa.Models.empresa_restaurante_usuario
+@{
+    ViewBag.Title = "Relación | Crear";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <!--begin::Portlet-->
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            AGREGAR RELACIÓN
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            @using (Html.BeginForm("Create", "EmpresasRestaurantesUsuarios", FormMethod.Post, new { @class = "m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group row">
+                        <label class="col-lg-2 col-form-label">
+                            @Html.LabelFor(m => m.empresa_id_fk, "Nombre:")
+                        </label>
+                        <div class="col-lg-3">
+                            @Html.DropDownList("empresa_id_fk", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.empresa_id_fk)
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label class="col-lg-2 col-form-label">
+                            @Html.LabelFor(m => m.restaurante_id_fk, "Restaurante:")
+                            @Html.HiddenFor(model => model.restaurante_id_fk)
 
-<!DOCTYPE html>
+                        </label>
+                        <div class="col-lg-3">
+                            @Html.TextBox("restaurante2", "", new { @class = "form-control m-input" })
+                            @Html.ValidationMessageFor(m => m.restaurante_id_fk)
+                        </div>
+                        <label class="col-lg-2 col-form-label">
+                            @Html.HiddenFor(model => model.usuarioASP_fk_Id)
+                            @Html.LabelFor(m => m.usuarioASP_fk_Id, "Usuario:")
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>empresa_restaurante_usuario</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.empresa_id_fk, "empresa_id_fk", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("empresa_id_fk", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.empresa_id_fk, "", new { @class = "text-danger" })
+                        </label>
+                        <div class="col-lg-3">
+                            @Html.TextBox("usuarioASP", "", new { @class = "form-control m-input" })
+                            @Html.ValidationMessageFor(m => m.usuarioASP_fk_Id)
+                        </div>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="form-group">
-                    @Html.HiddenFor(model => model.restaurante_id_fk)
-                    @Html.TextBox("restaurante2", "", new { @class = "form-control m-input" })
-                    @Html.ValidationMessageFor(m => m.restaurante_id_fk)
+
+                <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                    <div class="m-form__actions m-form__actions--solid">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-6">
+                                <input type="submit" value="Agregar" class="btn btn-primary" />
+                                <a href="/Admin/EmpresasRestaurantesUsuarios/Index" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.HiddenFor(model => model.usuarioASP_fk_Id)
-                @Html.TextBox("usuarioASP", "",new {@class= "form-control m-input" })
-                @Html.ValidationMessageFor(m => m.usuarioASP_fk_Id)
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+            }
+            <!--end::Form-->
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+        <!--end::Portlet-->
     </div>
-</body>
-</html>
+</div>

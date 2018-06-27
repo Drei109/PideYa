@@ -1,63 +1,181 @@
 ﻿@using PideYa.Models
-@model LoginViewModel
+@model LoginRegisterViewModel
 @{
     ViewBag.Title = "Iniciar sesión";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use una cuenta local para iniciar sesión.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- begin::Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>
+        PideYa! | Login 
+    </title>
+    <meta name="description" content="Latest updates and statistic charts">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--begin::Web font -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script>
+          WebFont.load({
+            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+          });
+    </script>
+    <!--end::Web font -->
+    <!--begin::Base Styles -->
+    <link href="~/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+    <!--end::Base Styles -->
+    <link rel="shortcut icon" href="~/assets/demo/default/media/img/logo/favicon.ico" />
+</head>
+<!-- end::Head -->
+<!-- end::Body -->
+<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin" id="m_login">
+            <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
+                
+                    <div class="m-stack m-stack--hor m-stack--desktop">
+                        <div class="m-stack__item m-stack__item--fluid">
+                            <div class="m-login__wrapper">
+                                <div class="m-login__logo">
+                                    <a href="#">
+                                        <h1 class="m--font-brand display-3">Pide<b>Ya!</b></h1>
+                                    </a>
+                                </div>
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-login__form m-form", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="m-login__signin">
+                                        <div class="m-login__head">
+                                            <h3 class="m-login__title">
+                                                Iniciar Sesión
+                                            </h3>
+                                        </div>
+                                        <form class="m-login__form m-form" action="">
+                                            <div class="form-group m-form__group">
+                                                @Html.TextBoxFor(m => m.EmailLogin, new { @class = "form-control m-input", @placeholder = "Email", @type = "text" })
+                                                @Html.ValidationMessageFor(m => m.EmailLogin, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group m-form__group">
+                                                @Html.PasswordFor(m => m.PasswordLogin, new { @class = "form-control m-input m-login__form-input--last", @placeholder = "Password", @type = "password" })
+                                                @Html.ValidationMessageFor(m => m.PasswordLogin, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="row m-login__form-sub">
+                                                <div class="col m--align-left">
+                                                    <label class="m-checkbox m-checkbox--focus">
+                                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                                        Recordarme
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            @*<div class="col m--align-right">
+                                                <a href="javascript:;" id="m_login_forget_password" class="m-link">
+                                                    Forget Password ?
+                                                </a>
+                                            </div>*@
+                                            </div>
+                                            <div class="m-login__form-action">
+                                                <input type="submit" value="Iniciar sesión" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal m-login__form m-form", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="m-login__signup">
+                                        <div class="m-login__head">
+                                            <h3 class="m-login__title">
+                                                Crear cuenta
+                                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                            </h3>
+                                            <div class="m-login__desc">
+                                                Ingrese los detalles para crear una nueva cuenta:
+                                            </div>
+                                        </div>
+                                        <form class="m-login__form m-form" action="">
+                                            <div class="form-group m-form__group">
+                                                @Html.TextBoxFor(m => m.EmailRegister, new { @class = "form-control m-input", @placeholder = "Email", @type = "email"})
+                                                @Html.ValidationMessageFor(m => m.EmailRegister, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group m-form__group">
+                                                @Html.TextBoxFor(m => m.PasswordRegister, new { @class = "form-control m-input", @placeholder = "Password", @type = "password" })
+                                                @Html.ValidationMessageFor(m => m.PasswordRegister, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group m-form__group">
+                                                @Html.TextBoxFor(m => m.ConfirmPasswordRegister, new { @class = "form-control m-input", @placeholder = "Confirmar Password", @type = "password" })
+                                                @Html.ValidationMessageFor(m => m.ConfirmPasswordRegister, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="row form-group m-form__group m-login__form-sub">
+                                                <div class="col m--align-left">
+                                                    <label class="m-checkbox m-checkbox--focus">
+                                                        <input type="checkbox" name="agree">
+                                                        Acepto los
+                                                        <a href="#" class="m-link m-link--focus">
+                                                            términos y condiciones
+                                                        </a>
+                                                        .
+                                                        <span></span>
+                                                    </label>
+                                                    <span class="m-form__help"></span>
+                                                </div>
+                                            </div>
+                                            <div class="m-login__form-action">
+                                                <input id="" type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" value="Registrarse" />
+                                                <button id="m_login_signup_cancel" class="btn btn-outline-focus  m-btn m-btn--pill m-btn--custom">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="m-stack__item m-stack__item--center">
+                            <div class="m-login__account">
+                                <span class="m-login__account-msg">
+                                    ¿No tienes una cuenta aún?
+                                </span>
+                                &nbsp;&nbsp;
+                                <a href="javascript:;" id="m_login_signup" class="m-link m-link--focus m-login__account-link">
+                                    Regístrate
+                                </a>
+                            </div>
                         </div>
                     </div>
+            </div>
+            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url(../../../assets/app/media/img//bg/bg-2.jpg)">
+                <div class="m-grid__item m-grid__item--middle">
+                    <h3 class="m-login__welcome">
+                        Únete a PideYa!
+                    </h3>s
+                    <p class="m-login__msg">
+                        Encuentra un restaurante con nuestro servicio
+                        <br>
+                        escanea el código QR y pide ya!
+                    </p>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar sesión" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Registrar como nuevo usuario", "Register")
-                </p>
-                @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña
-                    <p>
-                        @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
-
-@section Scripts {
+    <!-- end:: Page -->
+    <!--begin::Base Scripts -->
+    <script src="~/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+    <script src="~/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+    <!--end::Base Scripts -->
+    <!--begin::Page Snippets -->
+    <script src="~/assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
+    <!--end::Page Snippets -->
     @Scripts.Render("~/bundles/jqueryval")
-}
+</body>
+<!-- end::Body -->
+</html>

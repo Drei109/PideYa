@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PideYa.Models;
@@ -66,17 +67,20 @@ namespace PideYa.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginRegisterViewModel model, string returnUrl)
         {
+            ModelState.Remove("PasswordRegister");
+            ModelState.Remove("ConfirmPasswordRegister");
+            ModelState.Remove("EmailRegister");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
-            // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var user = await UserManager.FindAsync(model.Email, model.Password);
+            var result = await SignInManager.PasswordSignInAsync(model.EmailLogin, model.PasswordLogin, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindAsync(model.EmailLogin, model.PasswordLogin);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -84,7 +88,7 @@ namespace PideYa.Controllers
                     {
                         return RedirectToAction("Index","Home", new { area = "Admin" });
                     }
-                    if ((UserManager.IsInRole(user.Id, RoleName.Manager)))
+                    else if((UserManager.IsInRole(user.Id, RoleName.Manager)))
                     {
                         return RedirectToAction("Index", "Home", new { area = "Manager" });
                     }
@@ -156,14 +160,23 @@ namespace PideYa.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(LoginRegisterViewModel model)
         {
+            ModelState.Remove("PasswordLogin");
+            ModelState.Remove("RememberMe");
+            ModelState.Remove("EmailLogin");
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.EmailRegister, Email = model.EmailRegister };
+                var result = await UserManager.CreateAsync(user, model.PasswordRegister);
+                
+                
                 if (result.Succeeded)
                 {
+                    var currentUser = UserManager.FindByName(user.UserName);
+                    await UserManager.AddToRoleAsync(currentUser.Id, "Manager");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
@@ -172,13 +185,13 @@ namespace PideYa.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new {area = "Manager"});
                 }
                 AddErrors(result);
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+            return View("Login", model);
         }
 
         //

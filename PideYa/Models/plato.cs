@@ -33,7 +33,6 @@ namespace PideYa.Models
         [Required]
         public string descripcion { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string foto { get; set; }
 

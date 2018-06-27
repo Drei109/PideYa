@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PideYa.Models;
@@ -54,13 +55,18 @@ namespace PideYa.Areas.Manager.Controllers
 
         // POST: Manager/platos/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "plato_id,restaurante_id_fk,nombre,precio,categoria_plato_id_fk,descripcion,foto,estado")] plato plato)
+        public ActionResult Create(plato plato, HttpPostedFileBase fotoFile)
         {
+            ModelState.Remove("foto");
+
             if (ModelState.IsValid)
             {
+                plato.foto = "/Uploads/Platos/" + plato.plato_id + ".png";
                 _db.plato.Add(plato);
                 _db.SaveChanges();
+
+                fotoFile?.SaveAs(Server.MapPath("~/Uploads/Platos/" + plato.plato_id + ".png"));
+
                 return RedirectToAction("Index");
             }
 

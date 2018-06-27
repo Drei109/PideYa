@@ -62,6 +62,38 @@ namespace PideYa.Models
         public bool RememberMe { get; set; }
     }
 
+    public class LoginRegisterViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string EmailLogin { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string PasswordLogin { get; set; }
+
+        [Display(Name = "¿Recordar cuenta?")]
+        public bool RememberMe { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string EmailRegister { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string PasswordRegister { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("PasswordRegister", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        public string ConfirmPasswordRegister { get; set; }
+    }
+
     public class RegisterViewModel
     {
         [Required]
