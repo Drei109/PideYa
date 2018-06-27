@@ -1,0 +1,205 @@
+﻿@model List<PideYa.Models.boleta_detalle>
+@{
+    ViewBag.Title = "VerReportes";
+    int valor=0;
+    string data="";
+    string data2="";
+    string data3 = "";
+    String total = "";
+    string nombre = "";
+    decimal ttl = 0;
+    int a = 0;
+}
+
+<h2>Reportes</h2>
+<br/>
+        @foreach (var item in Model)
+        {
+            valor = item.plato.pedido_detalle.Count();
+            data = item.plato.nombre;
+            data2 = data2 + "[" + "'" + data + "'" + "," + valor + "],";
+            if (a == 0)
+            {
+                ttl = ttl + item.total;
+                nombre = item.plato.restaurante.nombre;
+                data3 = data3 + "'" + nombre + "'" + ",";
+                a = 1;
+            }
+            else
+            {
+                if (item.plato.restaurante.nombre.Equals(nombre))
+                {
+                    ttl = ttl + item.total;
+                }
+                else
+                {
+                    nombre = item.plato.restaurante.nombre;
+                    data3 = data3 + "'" + nombre + "'" + ",";
+                    total = total + ttl + ",";
+                    ttl = 0;
+                    ttl = ttl + item.total;
+                    a = 0;
+                }
+            }
+            if (a == 0)
+            {
+                total = total + ttl + ",";
+            }
+        }
+    <style>.invisible{display:none}</style>
+    <div class="invisible">@(total = total + ttl + ","); </div> 
+
+ <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<br />
+<div id="spider" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+<br />
+<div id="barras" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto">
+    
+</div>
+<button id="plain" class="btn btn-default">Plain</button>
+<button id="inverted"class="btn btn-default">Inverted</button>
+<button id="polar"class="btn btn-default">Polar</button>
+
+
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Platos mas Vendidos'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [@Html.Raw((String)data2)]
+        }]
+    });
+    //spider
+    Highcharts.chart('spider', {
+
+        chart: {
+            polar: true,
+            type: 'line'
+        },
+
+        title: {
+            text: 'Total Ventas',
+            x: -80
+        },
+
+        pane: {
+            size: '80%'
+        },
+
+        xAxis: {
+            categories: [@Html.Raw((String)data3)],
+            tickmarkPlacement: 'on',
+            lineWidth: 0
+        },
+
+        yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+        },
+
+        tooltip: {
+            shared: true,
+            pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+        },
+
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 70,
+            layout: 'vertical'
+        },
+
+        series: [{
+            name: 'Total',
+            data: [@Html.Raw((String)total)],
+            pointPlacement: 'on'
+        }]
+
+    });
+    //barras
+    var chart = Highcharts.chart('barras', {
+
+        title: {
+            text: 'Total Ventas'
+        },
+
+        subtitle: {
+            text: 'Total'
+        },
+
+        xAxis: {
+            categories: [@Html.Raw((String)data3)]
+        },
+
+        series: [{
+            type: 'column',
+            colorByPoint: true,
+            data: [@Html.Raw((String)total)],
+            showInLegend: false
+        }]
+
+    });
+
+
+    $('#plain').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false
+            },
+            subtitle: {
+                text: 'Plain'
+            }
+        });
+    });
+
+    $('#inverted').click(function () {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false
+            },
+            subtitle: {
+                text: 'Inverted'
+            }
+        });
+    });
+
+    $('#polar').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true
+            },
+            subtitle: {
+                text: 'Polar'
+            }
+        });
+    });
+</script>
