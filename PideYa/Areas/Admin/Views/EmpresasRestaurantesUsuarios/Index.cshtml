@@ -62,23 +62,12 @@
                         {
                             <tr>
                                 <td>@e.empresa.nombre</td>
-                                @if (e.restaurante!=null)
-                                {
-                                    <td>@e.restaurante.nombre</td>
-                                }
-                                else
-                                {
-                                    <td>--</td>
-                                }
-                                @if (e.user != null)
-                                {
-                                    <td>@e.user.Email</td>
-                                }
-                                else
-                                {
-                                    <td>--</td>
-                                }
-                                
+                                <td>
+                                    @(e.restaurante != null ? e.restaurante.nombre : "")
+                                </td>
+                                <td>
+                                    @(e.user != null ? e.user.Email : "")
+                                </td>
                                 <td>
                                     @Html.ActionLink("Editar", "Edit", new { id = e.restaurante_usuario_id }, new { @class = "btn m-btn--square  btn-outline-warning m-btn m-btn--outline-2x" })
                                     @Html.ActionLink("Detalles", "Details", new { id = e.restaurante_usuario_id }, new { @class = "btn m-btn--square  btn-outline-info m-btn m-btn--outline-2x" })
