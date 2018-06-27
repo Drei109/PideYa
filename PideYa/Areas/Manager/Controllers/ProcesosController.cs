@@ -132,6 +132,11 @@ namespace PideYa.Areas.Manager.Controllers
             var boletaCabecera = _context.boleta_cabecera.SingleOrDefault(x => x.pedido_cabecera_fk_id == id);
             return View("GenerarBoleta", boletaCabecera);
         }
+        public ActionResult VerReportes()
+        {
+            var galerias = _context.boleta_detalle.Include("plato").ToList();         
+            return View("VerReportes", galerias);
+        }
 
         protected override void Dispose(bool disposing)
         {

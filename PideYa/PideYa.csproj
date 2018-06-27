@@ -608,7 +608,11 @@
     <Content Include="Areas\Manager\Views\Procesos\Pedidos.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\Boletas.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\GenerarBoleta.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\VerReportes.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\export-data.js" />
+    <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
