@@ -1,0 +1,139 @@
+﻿@model PideYa.Models.boleta_cabecera
+
+<div class="m-portlet">
+    <div class="m-portlet__body m-portlet__body--no-padding">
+        <div class="m-invoice-2">
+            <div class="m-invoice__wrapper">
+                <div class="m-invoice__head">
+                    <div class="m-invoice__container m-invoice__container--centered">
+                        <div class="m-invoice__logo">
+                            <a href="#">
+                                <h1>
+                                    BOLETA
+                                </h1>
+                            </a>
+                            <a href="#">
+                                <h2>Pide<b>Ya!</b></h2>
+                            </a>
+                        </div>
+                        <span class="m-invoice__desc">
+                            <span>
+                                www.pideya.com
+                            </span>
+                            <span>
+                                Tacna - Perú
+                            </span>
+                        </span>
+                        <div class="m-invoice__items">
+                            <div class="m-invoice__item">
+                                <span class="m-invoice__subtitle">
+                                    FECHA
+                                </span>
+                                <span class="m-invoice__text">
+                                    @Model.fecha
+                                </span>
+                            </div>
+                            <div class="m-invoice__item">
+                                <span class="m-invoice__subtitle">
+                                    BOLETA NO.
+                                </span>
+                                <span class="m-invoice__text">
+                                    @Model.boleta_cabecera_id
+                                </span>
+                            </div>
+                            <div class="m-invoice__item">
+                                <span class="m-invoice__subtitle">
+                                    CLIENTE.
+                                </span>
+                                <span class="m-invoice__text">
+                                    @Html.TextBoxFor(model => model.cliente)
+                                    <br>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-invoice__body m-invoice__body--centered">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    PLATO
+                                </th>
+                                <th>
+                                    CANTIDAD
+                                </th>
+                                <th>
+                                    PRECIO UNITARIO
+                                </th>
+                                <th>
+                                    TOTAL
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach(var detalle in Model.boleta_detalle)
+                            {
+                                <tr>
+                                    <td>
+                                        @detalle.plato.nombre
+                                    </td>
+                                    <td>
+                                        @detalle.cantidad
+                                    </td>
+                                    <td>
+                                        @detalle.plato.precio
+                                    </td>
+                                    <td class="m--font-danger">
+                                        @detalle.total
+                                    </td>
+                                </tr>   
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="m-invoice__footer">
+                    <div class="m-invoice__table  m-invoice__table--centered table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                    FECHA
+                                </th>
+                                <th>
+                                    TOTAL
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    @Model.fecha
+                                </td>
+                                <td class="m--font-danger">
+                                    @Model.total
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a href="@Url.Action("Boletas", null, new { area = "Manager", controller = "Procesos"}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
+        Regresar
+    </a>
+</div>

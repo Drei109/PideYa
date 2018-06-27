@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -61,7 +62,7 @@ namespace PideYa.Areas.Manager.Controllers
             return RedirectToAction("Pedidos");
         }
 
-        public ActionResult Boleta()
+        public ActionResult Boletas()
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var pedidosList = new List<pedido_cabecera>();
@@ -71,7 +72,8 @@ namespace PideYa.Areas.Manager.Controllers
                     .Where(x => x.usuarioASP_fk_Id == userId)
                     .Select(x => x.restaurante.mesa
                         .Select(y => y.pedido_cabecera
-                            .Where(z => z.estado == EstadoPedidoCabecera.Terminado)))
+                            .Where(z => z.estado == EstadoPedidoCabecera.Terminado ||
+                                        z.estado == EstadoPedidoCabecera.Generado)))
                     .ToList();
                 foreach (var res in pedidos)
                 {
@@ -81,24 +83,54 @@ namespace PideYa.Areas.Manager.Controllers
             return View(pedidosList);
         }
 
-        public ActionResult GenerarBoleta()
+        public ActionResult GenerarBoleta(int id)
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var pedidosList = new List<pedido_cabecera>();
-            if (userId != null)
+            var pedidoCabeceraObj = _context.pedido_cabecera.Find(id);
+
+            if (pedidoCabeceraObj == null)
+                return View();
+            
+            //else
+            pedidoCabeceraObj.estado = EstadoPedidoCabecera.Generado;
+
+            var boletaCabecera = new boleta_cabecera
             {
-                var pedidos = _context.empresa_restaurante_usuario
-                    .Where(x => x.usuarioASP_fk_Id == userId)
-                    .Select(x => x.restaurante.mesa
-                        .Select(y => y.pedido_cabecera
-                            .Where(z => z.estado == EstadoPedidoCabecera.Terminado)))
-                    .ToList();
-                foreach (var res in pedidos)
+                estado = EstadoBoletaCabecera.Generado,
+                usuarioASP_fk_Id = userId,
+                pedido_cabecera_fk_id = id,
+                cliente = "",
+                fecha = DateTime.Now,
+                subtotal = pedidoCabeceraObj.precio_final * Convert.ToDecimal(0.16),
+                total = pedidoCabeceraObj.precio_final * Convert.ToDecimal(1.16),
+            };
+
+            _context.boleta_cabecera.Add(boletaCabecera);
+            _context.SaveChanges();
+
+            foreach (var pedidoDetalle in pedidoCabeceraObj.pedido_detalle)
+            {
+                var boletaDetalle = new boleta_detalle
                 {
-                    pedidosList.AddRange(res.SelectMany(mesa => mesa));
-                }
+                    cantidad = pedidoDetalle.cantidad,
+                    plato = pedidoDetalle.plato,
+                    plato_id_fk = pedidoDetalle.plato_id_fk,
+                    boleta_cabecera_id_fk = boletaCabecera.boleta_cabecera_id,
+                    total = pedidoDetalle.precio
+                };
+                _context.boleta_detalle.Add(boletaDetalle);
+                _context.SaveChanges();
+
+                boletaCabecera.boleta_detalle.Add(boletaDetalle);
             }
-            return View(pedidosList);
+
+            return View(boletaCabecera);
+        }
+
+        public ActionResult VerBoleta(int id)
+        {
+            var boletaCabecera = _context.boleta_cabecera.SingleOrDefault(x => x.pedido_cabecera_fk_id == id);
+            return View("GenerarBoleta", boletaCabecera);
         }
 
         protected override void Dispose(bool disposing)

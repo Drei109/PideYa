@@ -28,4 +28,10 @@ namespace PideYa.Areas.User.Models
         public static readonly string Cancelado = "Cancelado";
         public static readonly string Generado = "Generado";
     }
+
+    public class EstadoBoletaCabecera
+    {
+        public static readonly string Generado = "Generado";
+        public static readonly string Pagado = "Pagado";
+    }
 }

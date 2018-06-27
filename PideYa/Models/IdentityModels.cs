@@ -45,6 +45,8 @@ namespace PideYa.Models
         public virtual DbSet<tipo_restaurante> tipo_restaurante { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<usuario_tipo> usuario_tipo { get; set; }
+        public virtual DbSet<boleta_cabecera> boleta_cabecera { get; set; }
+        public virtual DbSet<boleta_detalle> boleta_detalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

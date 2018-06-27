@@ -244,8 +244,22 @@
     <Compile Include="Migrations\201806201426294_userFK.Designer.cs">
       <DependentUpon>201806201426294_userFK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806261951469_boleta related tables added.cs" />
+    <Compile Include="Migrations\201806261951469_boleta related tables added.Designer.cs">
+      <DependentUpon>201806261951469_boleta related tables added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806262003336_igv column deleted.cs" />
+    <Compile Include="Migrations\201806262003336_igv column deleted.Designer.cs">
+      <DependentUpon>201806262003336_igv column deleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806270335416_Columns added to BoletaCabecera.cs" />
+    <Compile Include="Migrations\201806270335416_Columns added to BoletaCabecera.Designer.cs">
+      <DependentUpon>201806270335416_Columns added to BoletaCabecera.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\boleta_cabecera.cs" />
+    <Compile Include="Models\boleta_detalle.cs" />
     <Compile Include="Models\empresa.cs" />
     <Compile Include="Models\empresa_restaurante_usuario.cs" />
     <Compile Include="Models\estado_empresa.cs" />
@@ -258,7 +272,6 @@
     <Compile Include="Models\plato.cs" />
     <Compile Include="Models\plato_categoria.cs" />
     <Compile Include="Models\restaurante.cs" />
-    <Compile Include="Models\RestauranteContext.cs" />
     <Compile Include="Models\restaurante_tipo.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
@@ -589,7 +602,8 @@
     <Content Include="Areas\User\Views\Procesos\PedidoCabecera.cshtml" />
     <Content Include="Areas\User\Views\Procesos\PedidoDetalle.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\Pedidos.cshtml" />
-    <Content Include="Areas\Manager\Views\Procesos\Boleta.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\Boletas.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\GenerarBoleta.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -664,6 +678,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806201426294_userFK.resx">
       <DependentUpon>201806201426294_userFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261951469_boleta related tables added.resx">
+      <DependentUpon>201806261951469_boleta related tables added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806262003336_igv column deleted.resx">
+      <DependentUpon>201806262003336_igv column deleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806270335416_Columns added to BoletaCabecera.resx">
+      <DependentUpon>201806270335416_Columns added to BoletaCabecera.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

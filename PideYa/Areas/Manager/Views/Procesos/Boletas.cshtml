@@ -20,6 +20,7 @@
     <div class="col-lg-4">
         @for (var i = 0; i < Model.Count; i += 3)
         {
+            @Html.HiddenFor(m => m[i].pedido_cabecera_id)
             <!--begin::Portlet-->
             <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
                 <div class="m-portlet__head">
@@ -58,9 +59,18 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 m--align-right"></div>
                         <div class="col-lg-6 m--align-right">
-                            <a href="@Url.Action("GenerarBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
-                                Generar Boleta
-                            </a>
+                            @if (Model[i].estado == EstadoPedidoCabecera.Terminado)
+                            {
+                                <a href="@Url.Action("GenerarBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Generar Boleta
+                                </a>
+                            }
+                            else if (Model[i].estado == EstadoPedidoCabecera.Generado)
+                            {
+                                <a href="@Url.Action("VerBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Ver Boleta
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -69,8 +79,9 @@
         }
     </div>
     <div class="col-lg-4">
-        @for (var i = 1; i < Model.Count; i += 3)
+        @for (var i = 0; i < Model.Count; i += 3)
         {
+            @Html.HiddenFor(m => m[i].pedido_cabecera_id)
             <!--begin::Portlet-->
             <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
                 <div class="m-portlet__head">
@@ -80,23 +91,9 @@
                                 <i class="flaticon-placeholder-2"></i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                                Mesa @Model[i].mesa_id_fk
+                                Pedido #@Model[i].pedido_cabecera_id
                             </h3>
                         </div>
-                    </div>
-                    <div class="m-portlet__head-tools">
-                        <ul class="m-portlet__nav">
-                            <li class="m-portlet__nav-item">
-                                <a href="@Url.Action("CancelarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
-                                    <i class="la la-check"></i>
-                                </a>
-                            </li>
-                            <li class="m-portlet__nav-item">
-                                <a href="@Url.Action("TerminarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
-                                    <i class="la la-remove"></i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="m-portlet__body">
@@ -119,15 +116,34 @@
                         <div class="col-3"><b>@Model[i].precio_final</b></div>
                     </div>
                 </div>
-
+                <div class="m-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--align-right"></div>
+                        <div class="col-lg-6 m--align-right">
+                            @if (Model[i].estado == EstadoPedidoCabecera.Terminado)
+                            {
+                                <a href="@Url.Action("GenerarBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Generar Boleta
+                                </a>
+                            }
+                            else if (Model[i].estado == EstadoPedidoCabecera.Generado)
+                            {
+                                <a href="@Url.Action("VerBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Ver Boleta
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end::Portlet-->
         }
     </div>
 
     <div class="col-lg-4">
-        @for (var i = 2; i < Model.Count; i += 3)
+        @for (var i = 0; i < Model.Count; i += 3)
         {
+            @Html.HiddenFor(m => m[i].pedido_cabecera_id)
             <!--begin::Portlet-->
             <div class="m-portlet m-portlet--tabs m-portlet--@Estado(Model[i].estado) m-portlet--head-solid-bg m-portlet--bordered m-portlet--sortable">
                 <div class="m-portlet__head">
@@ -137,23 +153,9 @@
                                 <i class="flaticon-placeholder-2"></i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                                Mesa @Model[i].mesa_id_fk
+                                Pedido #@Model[i].pedido_cabecera_id
                             </h3>
                         </div>
-                    </div>
-                    <div class="m-portlet__head-tools">
-                        <ul class="m-portlet__nav">
-                            <li class="m-portlet__nav-item">
-                                <a href="@Url.Action("CancelarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
-                                    <i class="la la-check"></i>
-                                </a>
-                            </li>
-                            <li class="m-portlet__nav-item">
-                                <a href="@Url.Action("TerminarPedido", null, new { area = "Manager", controller = "Procesos", id=@Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="m-portlet__nav-link m-portlet__nav-link--icon">
-                                    <i class="la la-remove"></i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="m-portlet__body">
@@ -176,7 +178,25 @@
                         <div class="col-3"><b>@Model[i].precio_final</b></div>
                     </div>
                 </div>
-
+                <div class="m-portlet__foot">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 m--align-right"></div>
+                        <div class="col-lg-6 m--align-right">
+                            @if (Model[i].estado == EstadoPedidoCabecera.Terminado)
+                            {
+                                <a href="@Url.Action("GenerarBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Generar Boleta
+                                </a>
+                            }
+                            else if (Model[i].estado == EstadoPedidoCabecera.Generado)
+                            {
+                                <a href="@Url.Action("VerBoleta", null, new {area = "Manager", controller = "Procesos", id = @Model[i].pedido_cabecera_id}, Request.Url?.Scheme)" class="btn btn-default">
+                                    Ver Boleta
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end::Portlet-->
         }
