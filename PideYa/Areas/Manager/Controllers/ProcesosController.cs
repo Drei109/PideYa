@@ -26,7 +26,7 @@ namespace PideYa.Areas.Manager.Controllers
                             .Where(z => z.estado == EstadoPedidoCabecera.Enviado ||
                                         z.estado == EstadoPedidoCabecera.Preparando ||
                                         z.estado == EstadoPedidoCabecera.Cancelado)))
-                    .ToList();
+                     .ToList();
 
                 foreach (var res in pedidos)
                 {
