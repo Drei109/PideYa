@@ -61,8 +61,9 @@ namespace PideYa.Areas.Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                plato.foto = "/Uploads/Platos/" + plato.plato_id + ".png";
                 _db.plato.Add(plato);
+                _db.SaveChanges();
+                plato.foto = "/Uploads/Platos/" + plato.plato_id + ".png";
                 _db.SaveChanges();
 
                 fotoFile?.SaveAs(Server.MapPath("~/Uploads/Platos/" + plato.plato_id + ".png"));
