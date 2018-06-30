@@ -231,6 +231,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\categoriaApiController.cs" />
     <Compile Include="Controllers\API\mesasApiController.cs" />
+    <Compile Include="Controllers\API\pedido_cabeceraApiController.cs" />
+    <Compile Include="Controllers\API\pedido_detalleApiController.cs" />
     <Compile Include="Controllers\API\platoApiController.cs" />
     <Compile Include="Controllers\API\platoCategoriaApiController.cs" />
     <Compile Include="Controllers\API\platosApiController.cs" />
