@@ -5,10 +5,13 @@
     string data="";
     string data2="";
     string data3 = "";
+    int data4 = 0;
     String total = "";
     string nombre = "";
     decimal ttl = 0;
     int a = 0;
+    decimal[] precio = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+    String datos = "";
 }
 
 <h2>Reportes</h2>
@@ -18,11 +21,71 @@
             valor = item.plato.pedido_detalle.Count();
             data = item.plato.nombre;
             data2 = data2 + "[" + "'" + data + "'" + "," + valor + "],";
+            data4 = item.boleta_cabecera.fecha.Month;
+
+            if (data4 == 1)
+            {
+                precio[0] = precio[0] + item.total;
+
+            }
+            else if (data4 == 2)
+            {
+                precio[1] = precio[1] + item.total;
+
+            }
+            else if(data4 == 3)
+            {
+                precio[2] = precio[2] + item.total;
+
+            }
+            else if(data4 == 4)
+            {
+                precio[3] = precio[3] + item.total;
+
+            }
+            else if(data4 == 5)
+            {
+                precio[4] = precio[4] + item.total;
+
+            }
+            else if(data4 == 6)
+            {
+                precio[5] = precio[5] + item.total;
+
+            }
+            else if(data4 == 7)
+            {
+                precio[6] = precio[6] + item.total;
+            }
+            else if(data4 == 8)
+            {
+                precio[7] = precio[7] + item.total;
+            }
+            else if(data4 == 9)
+            {
+                precio[8] = precio[8] + item.total;
+            }
+            else if(data4 == 10)
+            {
+                precio[9] = precio[9] + item.total;
+            }
+            else if(data4 == 11)
+            {
+                precio[10] = precio[10] + item.total;
+            }
+            else if(data4 == 12)
+            {
+                precio[11] = precio[11] + item.total;
+
+            }
+                          
+
             if (a == 0)
             {
                 ttl = ttl + item.total;
                 nombre = item.plato.restaurante.nombre;
                 data3 = data3 + "'" + nombre + "'" + ",";
+
                 a = 1;
             }
             else
@@ -46,22 +109,32 @@
                 total = total + ttl + ",";
             }
         }
-    <style>.invisible{display:none}</style>
-    <div class="invisible">@(total = total + ttl + ","); </div> 
+        <style>
+            .invisible {
+                display: none
+            }
+        </style>
+    <div class="invisible">
+    @(datos = datos + precio[0] + "," + precio[1] + "," + precio[2] + "," + precio[3] + "," + precio[4] + "," + precio[5] + "," + precio[6] + "," + precio[7] + "," + precio[8] + "," + precio[9] + "," + precio[10] + "," + precio[11]);
+    </div>
 
- <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-<br />
-<div id="spider" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
-<br />
-<div id="barras" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto">
-    
-</div>
-<button id="plain" class="btn btn-default">Plain</button>
-<button id="inverted"class="btn btn-default">Inverted</button>
-<button id="polar"class="btn btn-default">Polar</button>
+    <div class="invisible">@(total = total + ttl + ","); </div>
+
+    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    <br />
+    <div id="spider" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+    <br />
+    <div id="barras" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+    <br />
+    <div id="meses" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
 
 
-<script>
+    <button id="plain" class="btn btn-default">Plain</button>
+    <button id="inverted" class="btn btn-default">Inverted</button>
+    <button id="polar" class="btn btn-default">Polar</button>
+
+
+    <script>
     Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
@@ -202,4 +275,64 @@
             }
         });
     });
-</script>
+    //meses
+    var chart = Highcharts.chart('meses', {
+
+        title: {
+            text: 'Ventas por meses'
+        },
+
+        subtitle: {
+            text: 'Plain'
+        },
+
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+        series: [{
+            type: 'column',
+            colorByPoint: true,
+            data: [@Html.Raw((String)datos)],
+            showInLegend: false
+        }]
+
+    });
+
+
+    $('#plain').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false
+            },
+            subtitle: {
+                text: 'Plain'
+            }
+        });
+    });
+
+    $('#inverted').click(function () {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false
+            },
+            subtitle: {
+                text: 'Inverted'
+            }
+        });
+    });
+
+    $('#polar').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true
+            },
+            subtitle: {
+                text: 'Polar'
+            }
+        });
+    });
+    </script>
