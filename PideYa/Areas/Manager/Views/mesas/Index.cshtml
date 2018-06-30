@@ -22,6 +22,9 @@
             @Html.DisplayNameFor(model => model.estado)
         </th>
         <th>
+            QR
+        </th>
+        <th>
             Acciones
         </th>
         <th></th>
@@ -37,6 +40,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            <a href="/Uploads/@(item.mesa_id).png">
+                <img src="/Uploads/@(item.mesa_id).png" alt="" height="50px" />
+            </a>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.mesa_id }) |

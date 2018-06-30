@@ -73,7 +73,9 @@
                                 <td>@e.nombre</td>
                                 <td>@e.plato_categoria.nombre</td>
                                 <td>@e.precio</td>
-                                <td>@e.foto</td>
+                                <td>
+                                    <img src="@e.foto" alt="" height="50px" />
+                                </td>
                                 <td>@e.estado</td>
                                 <td>
                                     @Html.ActionLink("Editar", "Edit", new { id = e.plato_id }, new { @class = "btn m-btn--square  btn-outline-warning m-btn m-btn--outline-2x" })
