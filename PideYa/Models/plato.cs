@@ -1,3 +1,6 @@
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
 namespace PideYa.Models
 {
     using System;

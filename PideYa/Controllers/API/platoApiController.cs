@@ -16,10 +16,11 @@ namespace PideYa.Controllers.API
     public class platoApiController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: api/platoApi
         public IQueryable<plato> Getplato()
         {
+            db.Configuration.LazyLoadingEnabled = false;
             return db.plato;
         }
 
@@ -27,6 +28,7 @@ namespace PideYa.Controllers.API
         [ResponseType(typeof(plato))]
         public IHttpActionResult Getplato(int id)
         {
+            db.Configuration.LazyLoadingEnabled = false;
             //plato plato = db.plato.Find(id);
             var plato = db.plato.Include(x => x.plato_categoria).SingleOrDefault(x => x.plato_id == id);
             if (plato == null)
