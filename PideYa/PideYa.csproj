@@ -229,6 +229,7 @@
     <Compile Include="Areas\User\Controllers\ProcesosController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\categoriaApiController.cs" />
     <Compile Include="Controllers\API\mesasApiController.cs" />
     <Compile Include="Controllers\API\platoApiController.cs" />
     <Compile Include="Controllers\API\platoCategoriaApiController.cs" />
