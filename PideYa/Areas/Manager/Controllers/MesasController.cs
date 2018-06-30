@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -18,8 +19,28 @@ namespace PideYa.Areas.Manager.Controllers
         // GET: Manager/mesas
         public ActionResult Index()
         {
-            var mesa = _db.mesa.Include(m => m.restaurante);
-            return View(mesa.ToList());
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            if (userId != null)
+            {
+                var mesa = _db.empresa_restaurante_usuario
+                    .Include(r => r.restaurante)
+                    .Where(m => m.usuarioASP_fk_Id == userId)
+                    .Select(res => res.restaurante.mesa)
+                    .ToList();
+
+                var mesas = new List<mesa>();
+                foreach (var m in mesa)
+                {
+                    mesas.AddRange(m);
+                }
+                return View(mesas);
+            }
+            else
+            {
+                var mesas = _db.mesa.Include(m => m.restaurante);
+                return View(mesas);
+            }
+
         }
 
         // GET: Manager/mesas/Details/5
@@ -59,7 +80,11 @@ namespace PideYa.Areas.Manager.Controllers
             {
                 var user = System.Web.HttpContext.Current.User.Identity.GetUserId();
                 ViewBag.restaurante_id_fk = new SelectList(
-                    _db.empresa_restaurante_usuario.Include(r => r.restaurante).Where(m => m.usuarioASP_fk_Id == user).Select(res => res.restaurante).ToList(),
+                    _db.empresa_restaurante_usuario
+                        .Include(r => r.restaurante)
+                        .Where(m => m.usuarioASP_fk_Id == user)
+                        .Select(res => res.restaurante)
+                        .ToList(),
                     "restaurante_id", "nombre");
             }
             else

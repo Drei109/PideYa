@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,8 +17,28 @@ namespace PideYa.Areas.Manager.Controllers
         // GET: Manager/platos
         public ActionResult Index()
         {
-            var plato = _db.plato.Include(p => p.plato_categoria).Include(p => p.restaurante);
-            return View(plato.ToList());
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            if (userId != null)
+            {
+                var plato = _db.empresa_restaurante_usuario
+                    .Include(r => r.restaurante)
+                    .Where(m => m.usuarioASP_fk_Id == userId)
+                    .Select(res => res.restaurante.plato)
+                    .ToList();
+
+                var platos = new List<plato>();
+                foreach (var p in plato)
+                {
+                    platos.AddRange(p);
+                }
+                return View(platos);
+            }
+            else
+            {
+                var plato = _db.plato.Include(p => p.plato_categoria).Include(p => p.restaurante);
+                return View(plato.ToList());
+            }
+            
         }
 
         // GET: Manager/platos/Details/5

@@ -33,7 +33,9 @@ namespace PideYa.Areas.Manager.Controllers
                     pedidosList.AddRange(res.SelectMany(mesa => mesa));
                 }
 
-                return View(pedidosList);
+                var orderedPedidosList = pedidosList.OrderByDescending(x => x.pedido_cabecera_id).ToList();
+
+                return View(orderedPedidosList);
             }
             else
             {
