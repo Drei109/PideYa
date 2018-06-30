@@ -609,6 +609,7 @@
     <Content Include="Areas\Manager\Views\Procesos\Boletas.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\GenerarBoleta.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\VerReportes.cshtml" />
+    <None Include="Properties\PublishProfiles\PideYa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\export-data.js" />
