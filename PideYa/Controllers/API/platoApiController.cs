@@ -27,7 +27,8 @@ namespace PideYa.Controllers.API
         [ResponseType(typeof(plato))]
         public IHttpActionResult Getplato(int id)
         {
-            plato plato = db.plato.Find(id);
+            //plato plato = db.plato.Find(id);
+            var plato = db.plato.Include(x => x.plato_categoria).SingleOrDefault(x => x.plato_id == id);
             if (plato == null)
             {
                 return NotFound();
