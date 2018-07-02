@@ -21,6 +21,7 @@ namespace PideYa.Controllers.API
         [ResponseType(typeof(pedido_cabecera))]
         public IHttpActionResult Getpedido_cabecera()
         {
+            db.Configuration.LazyLoadingEnabled = false;
             pedido_cabecera pedido_cabecera =
                 db.pedido_cabecera.OrderByDescending(t => t.pedido_cabecera_id).FirstOrDefault();
             if (pedido_cabecera == null)
@@ -35,6 +36,7 @@ namespace PideYa.Controllers.API
         [ResponseType(typeof(pedido_cabecera))]
         public IHttpActionResult Getpedido_cabecera(int id)
         {
+            db.Configuration.LazyLoadingEnabled = false;
             pedido_cabecera pedido_cabecera = db.pedido_cabecera.Find(id);
             if (pedido_cabecera == null)
             {
