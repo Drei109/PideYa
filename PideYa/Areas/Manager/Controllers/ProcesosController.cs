@@ -15,6 +15,8 @@ namespace PideYa.Areas.Manager.Controllers
     {
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
 
+        private const string FirebaseToken = "AAAAtM_wP0M:APA91bEXyqy3dRfNn7a_UiWx5MOWfKlK66d77zKGAFx05IR08ekXUwUr0BXqN_3ww5C68KazVZQuavm_QRuHbdnyF6BEQYoCPchLc5p3wRo8ioDQP8BGn5-J_P1fD6pfY1dMMdo32EbKAC95mr474IvPlezp7RU_vg";
+
         public ActionResult Pedidos()
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -48,29 +50,20 @@ namespace PideYa.Areas.Manager.Controllers
             }
         }
 
-        //public ActionResult TerminarPedido(int id)
-        //{
-        //    var pedido = _context.pedido_cabecera.Find(id);
-        //    if (pedido != null) pedido.estado = EstadoPedidoCabecera.Terminado;
-        //    _context.SaveChanges();
-
-        //    return RedirectToAction("Pedidos");
-        //}
-
         public ActionResult TerminarPedido(int id)
         {
             var pedido = _context.pedido_cabecera.Find(id);
             if (pedido != null) pedido.estado = EstadoPedidoCabecera.Terminado;
             _context.SaveChanges();
 
-            var token = pedido.token;
+            var token = pedido != null ? pedido.token : "";
             NotificacionTerminarPedido(token);
             return RedirectToAction("Pedidos");
         }
 
         public Task NotificacionTerminarPedido(string token)
         {
-            FCMClient client = new FCMClient("AAAAtM_wP0M:APA91bEXyqy3dRfNn7a_UiWx5MOWfKlK66d77zKGAFx05IR08ekXUwUr0BXqN_3ww5C68KazVZQuavm_QRuHbdnyF6BEQYoCPchLc5p3wRo8ioDQP8BGn5-J_P1fD6pfY1dMMdo32EbKAC95mr474IvPlezp7RU_vg");
+            var client = new FCMClient(FirebaseToken);
             var message = new Message()
             {
                 To = token,
@@ -155,7 +148,26 @@ namespace PideYa.Areas.Manager.Controllers
                 boletaCabecera.boleta_detalle.Add(boletaDetalle);
             }
 
+            var token = pedidoCabeceraObj.token;
+            NotificacionGenerarBoleta(token);
+
             return View(boletaCabecera);
+        }
+
+        public Task NotificacionGenerarBoleta(string token)
+        {
+            var client = new FCMClient(FirebaseToken);
+            var message = new Message()
+            {
+                To = token,
+                Notification = new AndroidNotification()
+                {
+                    Title = "Su boleta está lista",
+                    Body = "El mozo le estará trayendo su boleta en unos momentos o puede acercarse a caja"
+                }
+
+            };
+            return client.SendMessageAsync(message);
         }
 
         public ActionResult VerBoleta(int id)

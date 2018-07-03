@@ -698,6 +698,7 @@
     <Content Include="Uploads\Platos\18.png" />
     <Content Include="Uploads\Platos\19.png" />
     <Content Include="Uploads\Platos\20.png" />
+    <Content Include="Uploads\Usuarios\userss.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -25,7 +25,8 @@ namespace PideYa.Controllers.API
                               {
                                   plato_categoria_id = pc.plato_categoria_id,
                                   nombre = pc.nombre,
-                                  restaurante_id_fk = p.restaurante_id_fk
+                                  restaurante_id_fk = p.restaurante_id_fk,
+                                  imagen = pc.imagen
                               }).ToList();
             return categorias;
         }
@@ -41,7 +42,8 @@ namespace PideYa.Controllers.API
                               {
                                   plato_categoria_id = pc.plato_categoria_id,
                                   nombre = pc.nombre,
-                                  restaurante_id_fk = p.restaurante_id_fk
+                                  restaurante_id_fk = p.restaurante_id_fk,
+                                  imagen = pc.imagen
                               }).Distinct().ToList();
 
             return categorias;
