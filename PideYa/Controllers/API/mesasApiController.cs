@@ -30,7 +30,7 @@ namespace PideYa.Controllers.API
 
         // GET: api/mesasApi/5
         [ResponseType(typeof(mesaRestauranteDTO))]
-        public async Task<IHttpActionResult> Getmesa(int id)
+        public IHttpActionResult Getmesa(int id)
         {
             var mesa = (from m in db.mesa
                         join r in db.restaurante on m.restaurante_id_fk equals r.restaurante_id
