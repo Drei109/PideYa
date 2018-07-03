@@ -63,13 +63,13 @@
                         <div class="row">
                             <div class="col-6">@t.plato.nombre</div>
                             <div class="col-3">@t.cantidad</div>
-                            <div class="col-3">@t.precio</div>
+                            <div class="col-3">@(Math.Round(t.precio, 2))</div>
                         </div>
                     }
                     <div class="row">
                         <div class="col-6"><b>Total :</b></div>
                         <div class="col-3"></div>
-                        <div class="col-3"><b>@Model[i].precio_final</b></div>
+                        <div class="col-3"><b>@(Math.Round(Model[i].precio_final,2))</b></div>
                     </div>
                 </div>
 
@@ -119,13 +119,13 @@
                         <div class="row">
                             <div class="col-6">@t.plato.nombre</div>
                             <div class="col-3">@t.cantidad</div>
-                            <div class="col-3">@t.precio</div>
+                            <div class="col-3">@(Math.Round(t.precio,2))</div>
                         </div>
                     }
                     <div class="row">
                         <div class="col-6"><b>Total :</b></div>
                         <div class="col-3"></div>
-                        <div class="col-3"><b>@Model[i].precio_final</b></div>
+                        <div class="col-3"><b>@(Math.Round(Model[i].precio_final, 2))</b></div>
                     </div>
                 </div>
 
@@ -176,7 +176,7 @@
                         <div class="row">
                             <div class="col-6">@t.plato.nombre</div>
                             <div class="col-3">@t.cantidad</div>
-                            <div class="col-3">@t.precio</div>
+                            <div class="col-3">@(Math.Round(t.precio, 2))</div>
                         </div>
                     }
                     <div class="row">

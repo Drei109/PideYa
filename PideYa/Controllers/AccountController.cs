@@ -86,11 +86,11 @@ namespace PideYa.Controllers
                 case SignInStatus.Success:
                     if ((UserManager.IsInRole(user.Id, RoleName.Admin)))
                     {
-                        return RedirectToAction("Index","Home", new { area = "Admin" });
+                        return RedirectToAction("Index","Empresas", new { area = "Admin" });
                     }
                     else if((UserManager.IsInRole(user.Id, RoleName.Manager)))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Manager" });
+                        return RedirectToAction("Pedidos", "Procesos", new { area = "Manager" });
                     }
                     return RedirectToLocal(returnUrl);  
                 case SignInStatus.LockedOut:
