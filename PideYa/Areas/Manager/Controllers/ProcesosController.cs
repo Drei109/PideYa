@@ -59,25 +59,27 @@ namespace PideYa.Areas.Manager.Controllers
 
         public ActionResult TerminarPedido(int id)
         {
-            NotificacionTerminarPedido();
             var pedido = _context.pedido_cabecera.Find(id);
             if (pedido != null) pedido.estado = EstadoPedidoCabecera.Terminado;
             _context.SaveChanges();
 
+            var token = pedido.token;
+            NotificacionTerminarPedido(token);
             return RedirectToAction("Pedidos");
         }
 
-        public Task NotificacionTerminarPedido()
+        public Task NotificacionTerminarPedido(string token)
         {
             FCMClient client = new FCMClient("AAAAtM_wP0M:APA91bEXyqy3dRfNn7a_UiWx5MOWfKlK66d77zKGAFx05IR08ekXUwUr0BXqN_3ww5C68KazVZQuavm_QRuHbdnyF6BEQYoCPchLc5p3wRo8ioDQP8BGn5-J_P1fD6pfY1dMMdo32EbKAC95mr474IvPlezp7RU_vg");
             var message = new Message()
             {
-                To = "fQ6uVP0fFjs:APA91bGPsuOAU35Xrdzx5MgNuJrQiPJ0aVlZCK_sIEU3vES-pm5-xw23_EXVxo1qBofb0RDp96L9KQgI_L-FvcNqq28MYuOGVP9FHJUkzQgvJ1Z_B-yxQ8_MwzKCE2IgJa6bxMaI5SEBqFekK-1Xk_mjdi-r_HuebA",
+                To = token,
                 Notification = new AndroidNotification()
                 {
-                    Title = "Hola",
-                    Body = ""
+                    Title = "Su pedido está listo",
+                    Body = "El mozo le estará trayendo su pedido en unos momentos"
                 }
+
             };
             return client.SendMessageAsync(message);
         }
