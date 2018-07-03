@@ -27,6 +27,8 @@ namespace PideYa.Models
 
         public string estado { get; set; }
 
+        public string token { get; set; }
+
         public virtual mesa mesa { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

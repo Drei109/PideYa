@@ -20,6 +20,7 @@ namespace PideYa.Models
         [Required]
         [StringLength(100)]
         public string nombre { get; set; }
+        public string imagen { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<plato> plato { get; set; }

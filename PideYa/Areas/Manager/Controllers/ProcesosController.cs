@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using FirebaseNet.Messaging;
 using Microsoft.AspNet.Identity;
 using PideYa.Areas.User.Models;
 using PideYa.Models;
@@ -46,13 +48,38 @@ namespace PideYa.Areas.Manager.Controllers
             }
         }
 
+        //public ActionResult TerminarPedido(int id)
+        //{
+        //    var pedido = _context.pedido_cabecera.Find(id);
+        //    if (pedido != null) pedido.estado = EstadoPedidoCabecera.Terminado;
+        //    _context.SaveChanges();
+
+        //    return RedirectToAction("Pedidos");
+        //}
+
         public ActionResult TerminarPedido(int id)
         {
+            NotificacionTerminarPedido();
             var pedido = _context.pedido_cabecera.Find(id);
             if (pedido != null) pedido.estado = EstadoPedidoCabecera.Terminado;
             _context.SaveChanges();
 
             return RedirectToAction("Pedidos");
+        }
+
+        public Task NotificacionTerminarPedido()
+        {
+            FCMClient client = new FCMClient("AAAAtM_wP0M:APA91bEXyqy3dRfNn7a_UiWx5MOWfKlK66d77zKGAFx05IR08ekXUwUr0BXqN_3ww5C68KazVZQuavm_QRuHbdnyF6BEQYoCPchLc5p3wRo8ioDQP8BGn5-J_P1fD6pfY1dMMdo32EbKAC95mr474IvPlezp7RU_vg");
+            var message = new Message()
+            {
+                To = "fQ6uVP0fFjs:APA91bGPsuOAU35Xrdzx5MgNuJrQiPJ0aVlZCK_sIEU3vES-pm5-xw23_EXVxo1qBofb0RDp96L9KQgI_L-FvcNqq28MYuOGVP9FHJUkzQgvJ1Z_B-yxQ8_MwzKCE2IgJa6bxMaI5SEBqFekK-1Xk_mjdi-r_HuebA",
+                Notification = new AndroidNotification()
+                {
+                    Title = "Hola",
+                    Body = ""
+                }
+            };
+            return client.SendMessageAsync(message);
         }
 
         public ActionResult CancelarPedido(int id)
