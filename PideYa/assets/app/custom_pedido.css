@@ -1,0 +1,11 @@
+﻿.pedido-custom {
+    min-height: 130px;
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.plate-body {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}

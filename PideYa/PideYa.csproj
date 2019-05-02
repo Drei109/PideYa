@@ -268,6 +268,9 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TiposRestauranteController.cs" />
+    <Compile Include="Areas\Employee\Controllers\PedidoController.cs" />
+    <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
+    <Compile Include="Areas\Employee\Models\EmployeeViewModels.cs" />
     <Compile Include="Areas\Manager\Controllers\ProcesosController.cs" />
     <Compile Include="Areas\User\Models\UserViewModels.cs" />
     <Compile Include="Areas\Manager\Controllers\HomeController.cs" />
@@ -323,6 +326,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\app\custom_pedido.css" />
+    <Content Include="assets\app\custom_pedido.js" />
     <Content Include="assets\app\custom_admin.js" />
     <Content Include="assets\app\js\dashboard.js" />
     <Content Include="assets\app\js\layout-builder.js" />
@@ -646,6 +651,14 @@
     <Content Include="Areas\Manager\Views\Procesos\Boletas.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\GenerarBoleta.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\VerReportes.cshtml" />
+    <Content Include="Areas\Employee\Views\web.config" />
+    <Content Include="Areas\Employee\Views\Pedido\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\Employee\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Employee\Views\Pedido\PedidoDetalle.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_LayoutPedido.cshtml" />
+    <Content Include="Areas\Manager\Views\Procesos\Dashboard.cshtml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

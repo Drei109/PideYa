@@ -32,7 +32,7 @@ namespace PideYa.Areas.Admin.Controllers
                     Select(x => new
                     {
                         id = x.empresa_id,
-                        nombre = x.nombre
+                        x.nombre
                     }).ToList();
                 return Json(restaurante, JsonRequestBehavior.AllowGet);
             }
@@ -43,7 +43,7 @@ namespace PideYa.Areas.Admin.Controllers
                     Select(x => new
                     {
                         id = x.empresa_id,
-                        nombre = x.nombre
+                        x.nombre
                     }).ToList();
                 return Json(restaurante, JsonRequestBehavior.AllowGet);
             }

@@ -28,8 +28,7 @@ namespace PideYa.Areas.Manager.Controllers
                     .Select(x => x.restaurante.mesa
                         .Select(y => y.pedido_cabecera
                             .Where(z => z.estado == EstadoPedidoCabecera.Enviado ||
-                                        z.estado == EstadoPedidoCabecera.Preparando ||
-                                        z.estado == EstadoPedidoCabecera.Cancelado)))
+                                        z.estado == EstadoPedidoCabecera.Preparando)))
                      .ToList();
 
                 foreach (var res in pedidos)
@@ -152,6 +151,12 @@ namespace PideYa.Areas.Manager.Controllers
             NotificacionGenerarBoleta(token);
 
             return View(boletaCabecera);
+        }
+
+        public ActionResult Dashboard()
+        {
+
+            return View();
         }
 
         public Task NotificacionGenerarBoleta(string token)

@@ -147,7 +147,7 @@ namespace PideYa.Areas.Admin.Controllers
             else
             {
                 var userList = _context.Users.
-                    Where(m => m.Email.StartsWith(term.ToLower())).
+                    Where   (m => m.Email.StartsWith(term.ToLower())).
                     Select(x => new
                     {
                         id = x.Id,

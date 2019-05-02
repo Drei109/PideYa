@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using PideYa.Areas.User.Models;
 using PideYa.Models;
 
@@ -14,7 +16,12 @@ namespace PideYa.Areas.User.Controllers
         // GET: User/Procesos
         public ActionResult PedidoCabecera()
         {
-            ViewBag.restaurante_id = new SelectList(_context.restaurante, "restaurante_id", "nombre");
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var user = _context.Users.Find(userId);
+            var restaurante = _context.empresa_restaurante_usuario.First(m => m.usuarioASP_fk_Id == userId).restaurante;
+            var restauranteList = new ArrayList {restaurante};
+            //ViewBag.restaurante_id = new SelectList(_context.restaurante, "restaurante_id", "nombre");
+            ViewBag.restaurante_id = new SelectList(restauranteList, "restaurante_id", "nombre");
             return View();
         }
 
