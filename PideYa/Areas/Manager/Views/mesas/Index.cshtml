@@ -57,7 +57,7 @@
                             <th title="Field #1">ID</th>
                             <th title="Field #2">Restaurante</th>
                             <th title="Field #3">Estado</th>
-                            <th title="Field #4">QR</th>
+                            @*<th title="Field #4">QR</th>*@
                             <th title="Field #5">Acciones</th>
                         </tr>
                     </thead>
@@ -68,11 +68,11 @@
                                 <td>@cont</td>
                                 <td>@e.restaurante.nombre</td>
                                 <td>@e.estado</td>
-                                <td>
+                                @*<td>
                                     <a href="/Uploads/@(e.mesa_id).png">
                                         <img src="/Uploads/@(e.mesa_id).png" alt="" height="50px" />
                                     </a>
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.ActionLink("Editar", "Edit", new { id = e.mesa_id }, new { @class = "btn m-btn--square  btn-outline-warning m-btn m-btn--outline-2x" })
                                     @Html.ActionLink("Detalles", "Details", new { id = e.mesa_id }, new { @class = "btn m-btn--square  btn-outline-info m-btn m-btn--outline-2x" })

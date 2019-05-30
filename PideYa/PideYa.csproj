@@ -307,6 +307,18 @@
     <Compile Include="Migrations\201905301916461_proveedor insumo receta tables added.Designer.cs">
       <DependentUpon>201905301916461_proveedor insumo receta tables added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905302127543_insumo precio unidad cantidad columns added or modified.cs" />
+    <Compile Include="Migrations\201905302127543_insumo precio unidad cantidad columns added or modified.Designer.cs">
+      <DependentUpon>201905302127543_insumo precio unidad cantidad columns added or modified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905302144486_cantidad in insumo changed to decimal.cs" />
+    <Compile Include="Migrations\201905302144486_cantidad in insumo changed to decimal.Designer.cs">
+      <DependentUpon>201905302144486_cantidad in insumo changed to decimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905302155294_cantidad in receta changed to decimal.cs" />
+    <Compile Include="Migrations\201905302155294_cantidad in receta changed to decimal.Designer.cs">
+      <DependentUpon>201905302155294_cantidad in receta changed to decimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\boleta_cabecera.cs" />
@@ -675,16 +687,16 @@
     <Content Include="Areas\Manager\Views\proveedors\Details.cshtml" />
     <Content Include="Areas\Manager\Views\proveedors\Edit.cshtml" />
     <Content Include="Areas\Manager\Views\proveedors\Index.cshtml" />
-    <Content Include="Areas\Manager\Views\insumos\Create.cshtml" />
-    <Content Include="Areas\Manager\Views\insumos\Delete.cshtml" />
-    <Content Include="Areas\Manager\Views\insumos\Details.cshtml" />
-    <Content Include="Areas\Manager\Views\insumos\Edit.cshtml" />
-    <Content Include="Areas\Manager\Views\insumos\Index.cshtml" />
     <Content Include="Areas\Manager\Views\receta_detalle\Create.cshtml" />
     <Content Include="Areas\Manager\Views\receta_detalle\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\receta_detalle\Details.cshtml" />
     <Content Include="Areas\Manager\Views\receta_detalle\Edit.cshtml" />
     <Content Include="Areas\Manager\Views\receta_detalle\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -745,35 +757,35 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_LayoutMain.cshtml" />
-    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Uploads\Views\Web.config" />
+    <Content Include="Uploads\Views\_ViewStart.cshtml" />
+    <Content Include="Uploads\Views\Shared\Error.cshtml" />
+    <Content Include="Uploads\Views\Shared\_Layout.cshtml" />
+    <Content Include="Uploads\Views\Home\About.cshtml" />
+    <Content Include="Uploads\Views\Home\Contact.cshtml" />
+    <Content Include="Uploads\Views\Home\Index.cshtml" />
+    <Content Include="Uploads\Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Uploads\Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Uploads\Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Uploads\Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Uploads\Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Uploads\Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Uploads\Views\Account\Login.cshtml" />
+    <Content Include="Uploads\Views\Account\Register.cshtml" />
+    <Content Include="Uploads\Views\Account\ResetPassword.cshtml" />
+    <Content Include="Uploads\Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Uploads\Views\Account\SendCode.cshtml" />
+    <Content Include="Uploads\Views\Account\VerifyCode.cshtml" />
+    <Content Include="Uploads\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Uploads\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Uploads\Views\Manage\Index.cshtml" />
+    <Content Include="Uploads\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Uploads\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Uploads\Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Uploads\Views\Shared\Lockout.cshtml" />
+    <Content Include="Uploads\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Uploads\Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Uploads\Views\Default\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -799,6 +811,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905301916461_proveedor insumo receta tables added.resx">
       <DependentUpon>201905301916461_proveedor insumo receta tables added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905302127543_insumo precio unidad cantidad columns added or modified.resx">
+      <DependentUpon>201905302127543_insumo precio unidad cantidad columns added or modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905302144486_cantidad in insumo changed to decimal.resx">
+      <DependentUpon>201905302144486_cantidad in insumo changed to decimal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905302155294_cantidad in receta changed to decimal.resx">
+      <DependentUpon>201905302155294_cantidad in receta changed to decimal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

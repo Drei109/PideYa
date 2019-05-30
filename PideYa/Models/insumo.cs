@@ -27,9 +27,11 @@ namespace PideYa.Models
         public string nombre { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal precio_unitario { get; set; }
+        public decimal precio { get; set; }
 
-        public int cantidad { get; set; }
+        public string unidad { get; set; }
+
+        public decimal cantidad { get; set; }
 
         [StringLength(100)]
         public string estado { get; set; }

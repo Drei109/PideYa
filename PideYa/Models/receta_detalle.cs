@@ -16,7 +16,7 @@ namespace PideYa.Models
         [Key, Column(Order = 1)]
         public int insumo_id { get; set; }
 
-        public int cantidad { get; set; }
+        public decimal cantidad { get; set; }
 
         [ForeignKey("plato_id")]
         public virtual plato plato { get; set; }

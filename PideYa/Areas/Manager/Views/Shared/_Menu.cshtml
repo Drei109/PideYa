@@ -59,6 +59,34 @@
                 </span>
             </a>
         </li>
+
+        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+            <a href="@Url.Action("Index", null, new { area = "Manager", controller = "proveedors" }, Request.Url?.Scheme)" class="m-menu__link">
+                <i class="m-menu__link-icon  flaticon-suitcase"></i>
+                <span class="m-menu__link-text">
+                    Proveedores
+                </span>
+            </a>
+        </li>
+
+        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+            <a href="@Url.Action("Index", null, new { area = "Manager", controller = "insumos" }, Request.Url?.Scheme)" class="m-menu__link">
+                <i class="m-menu__link-icon  flaticon-suitcase"></i>
+                <span class="m-menu__link-text">
+                    Insumos
+                </span>
+            </a>
+        </li>
+        
+        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+            <a href="@Url.Action("Index", null, new { area = "Manager", controller = "receta_detalle" }, Request.Url?.Scheme)" class="m-menu__link">
+                <i class="m-menu__link-icon  flaticon-suitcase"></i>
+                <span class="m-menu__link-text">
+                    Receta
+                </span>
+            </a>
+        </li>
+
         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
             <a href="@Url.Action("Index", null, new { area = "Manager", controller = "Mesas" }, Request.Url?.Scheme)" class="m-menu__link">
                 <i class="m-menu__link-icon  flaticon-suitcase"></i>

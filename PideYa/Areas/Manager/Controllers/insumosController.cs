@@ -49,7 +49,7 @@ namespace PideYa.Areas.Manager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "insumo_id,proveedor_id_fk,nombre,precio_unitario,cantidad,estado")] insumo insumo)
+        public async Task<ActionResult> Create([Bind(Include = "insumo_id,proveedor_id_fk,nombre,precio,unidad,cantidad,estado")] insumo insumo)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace PideYa.Areas.Manager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "insumo_id,proveedor_id_fk,nombre,precio_unitario,cantidad,estado")] insumo insumo)
+        public async Task<ActionResult> Edit([Bind(Include = "insumo_id,proveedor_id_fk,nombre,precio,unidad,cantidad,estado")] insumo insumo)
         {
             if (ModelState.IsValid)
             {
