@@ -1,0 +1,43 @@
+﻿@model PideYa.Models.receta_detalle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>receta_detalle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.insumo.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insumo.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.plato.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.plato.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

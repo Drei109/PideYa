@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using FirebaseNet.Messaging;
 using Microsoft.AspNet.Identity;
+using PideYa.Areas.Manager.Models;
 using PideYa.Areas.User.Models;
 using PideYa.Models;
 
@@ -155,8 +156,59 @@ namespace PideYa.Areas.Manager.Controllers
 
         public ActionResult Dashboard()
         {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var user = _context.Users.Find(userId);
+            var restaurante = _context.empresa_restaurante_usuario.First(m => m.usuarioASP_fk_Id == userId).restaurante;
 
-            return View();
+            var criterioVentasDiariasSemanas = DateTime.Now.Date.AddDays(-14);
+
+            var dailySales = _context.boleta_cabecera
+                    .Where(m => m.fecha >= criterioVentasDiariasSemanas
+                            &&  m.pedido_cabecera.mesa.restaurante_id_fk == restaurante.restaurante_id)
+                    .GroupBy(m => m.fecha)
+                    .Select(n => new
+                    {
+                        dia = n.Key,
+                        promedioVenta = n.Average(m => m.total)
+                    }).ToList();
+
+            var ventasDiariasList = new List<VentasDiarias>();
+
+            foreach (var dailySale in dailySales)
+            {
+                var newDailySale = new VentasDiarias(dailySale.dia, dailySale.promedioVenta);
+                ventasDiariasList.Add(newDailySale);
+            }
+
+            var criterioVentasSemanales = DateTime.Now.Date.AddDays(-7);
+            var criterioVentasMensuales = DateTime.Now.Date.AddDays(-30);
+            var ventasDiaSemanaMes = new VentasDiaSemanaMes
+            {
+                VentasDiarias = _context.boleta_cabecera
+                .Where(m => m.fecha >= DateTime.Today
+                            && m.pedido_cabecera.mesa.restaurante_id_fk == restaurante.restaurante_id)
+                .GroupBy(m => m.fecha)
+                .Select(n => new
+                {
+                    promedioVenta = n.Sum(m => m.total)
+                }).First().promedioVenta,
+
+                VentasSemanales = _context.boleta_cabecera
+                    .Where(m => m.fecha >= criterioVentasSemanales
+                                && m.pedido_cabecera.mesa.restaurante_id_fk == restaurante.restaurante_id)
+                    .Select(n => n.total).Sum(),
+
+                VentasMensuales = _context.boleta_cabecera
+                    .Where(m => m.fecha >= criterioVentasMensuales
+                                && m.pedido_cabecera.mesa.restaurante_id_fk == restaurante.restaurante_id)
+                    .Select(n => n.total).Sum()
+
+            };
+
+
+            var dashboardViewModel = new DashboardViewModel(ventasDiariasList, ventasDiaSemanaMes);
+            //ViewBag.ventasDiariasList = ventasDiariasList;
+            return View(dashboardViewModel);
         }
 
         public Task NotificacionGenerarBoleta(string token)

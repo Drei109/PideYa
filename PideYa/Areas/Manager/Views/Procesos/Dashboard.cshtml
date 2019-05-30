@@ -1,4 +1,8 @@
-﻿@model dynamic
+﻿@model PideYa.Areas.Manager.Models.DashboardViewModel
+@{
+    //List<DashboardViewModel> dashboardList = ViewBag.dashboardList;
+}
+
 
 <div class="m-portlet">
     <div class="m-portlet__body  m-portlet__body--no-padding">
@@ -10,15 +14,15 @@
                         <div class="row m-row--no-padding align-items-center">
                             <div class="col">
                                 <h3 class="m-widget1__title">
-                                    Member Profit
+                                    Venta Diaria
                                 </h3>
                                 <span class="m-widget1__desc">
-                                    Awerage Weekly Profit
+                                    Venta Diaria Acumulada
                                 </span>
                             </div>
                             <div class="col m--align-right">
                                 <span class="m-widget1__number m--font-brand">
-                                    +$17,800
+                                    @Model.VentasDiaSemanaMes.VentasDiarias
                                 </span>
                             </div>
                         </div>
@@ -27,15 +31,15 @@
                         <div class="row m-row--no-padding align-items-center">
                             <div class="col">
                                 <h3 class="m-widget1__title">
-                                    Orders
+                                    Ventas Semanales
                                 </h3>
                                 <span class="m-widget1__desc">
-                                    Weekly Customer Orders
+                                    Venta Semanal Acumulada
                                 </span>
                             </div>
                             <div class="col m--align-right">
                                 <span class="m-widget1__number m--font-danger">
-                                    +1,800
+                                    @Model.VentasDiaSemanaMes.VentasSemanales
                                 </span>
                             </div>
                         </div>
@@ -44,15 +48,15 @@
                         <div class="row m-row--no-padding align-items-center">
                             <div class="col">
                                 <h3 class="m-widget1__title">
-                                    Issue Reports
+                                    Ventas Mensuales
                                 </h3>
                                 <span class="m-widget1__desc">
-                                    System bugs and issues
+                                    Venta Mensual Acumulada
                                 </span>
                             </div>
                             <div class="col m--align-right">
                                 <span class="m-widget1__number m--font-success">
-                                    -27,49%
+                                    @Model.VentasDiaSemanaMes.VentasMensuales
                                 </span>
                             </div>
                         </div>
@@ -60,24 +64,24 @@
                 </div>
                 <!--end:: Widgets/Stats2-1 -->
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-8">
                 <!--begin:: Widgets/Daily Sales-->
                 <div class="m-widget14">
-                    <div class="m-widget14__header m--margin-bottom-30">
+                    <div class="m-widget14__header m--margin-bottom-10">
                         <h3 class="m-widget14__title">
-                            Daily Sales
+                            Ventas Diarias
                         </h3>
                         <span class="m-widget14__desc">
-                            Check out each collumn for more details
+                            Cantidad promedio de venta diarias de las últimas 2 semanas
                         </span>
                     </div>
-                    <div class="m-widget14__chart" style="height:120px;">
-                        <div  id="m_chart_daily_sales2"></div>
+                    <div class="m-widget14__chart" style="height:240px;">
+                        <canvas id="dailySalesWeek"></canvas>
                     </div>
                 </div>
                 <!--end:: Widgets/Daily Sales-->
             </div>
-            <div class="col-xl-4">
+            @*@<div class="col-xl-4">
                 <!--begin:: Widgets/Profit Share-->
                 <div class="m-widget14">
                     <div class="m-widget14__header">
@@ -121,7 +125,312 @@
                     </div>
                 </div>
                 <!--end:: Widgets/Profit Share-->
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-xl-4">
+        <!--begin:: Widgets/Authors Profit-->
+        <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            Platos más Pedidos
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="m-widget4">
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo5.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #1
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Parrillada
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                +$2500
+                            </span>
+                        </span>
+                    </div>
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo4.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #2
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Bebida
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                -$290
+                            </span>
+                        </span>
+                    </div>
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo3.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #3
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Entrada
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                +$17
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end:: Widgets/Authors Profit-->
+    </div>
+
+    <div class="col-xl-4">
+        <!--begin:: Widgets/Authors Profit-->
+        <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            Platos menos Pedidos
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="m-widget4">
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo5.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #1
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Pollo
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                +$2500
+                            </span>
+                        </span>
+                    </div>
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo4.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #2
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Pollo
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                -$290
+                            </span>
+                        </span>
+                    </div>
+                    <div class="m-widget4__item">
+                        <div class="m-widget4__img m-widget4__img--logo">
+                            <img src="assets/app/media/img/client-logos/logo3.png" alt="">
+                        </div>
+                        <div class="m-widget4__info">
+                            <span class="m-widget4__title">
+                                Plato #3
+                            </span>
+                            <br>
+                            <span class="m-widget4__sub">
+                                Entrada
+                            </span>
+                        </div>
+                        <span class="m-widget4__ext">
+                            <span class="m-widget4__number m--font-brand">
+                                +$17
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end:: Widgets/Authors Profit-->
+    </div>
+
+    <div class="col-xl-4">
+        <!--begin:: Widgets/Authors Profit-->
+        <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            Categoría breakdown
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-widget14">
+                <div class="row  align-items-center">
+                    <div class="col">
+                        <div id="m_chart_profit_share" class="m-widget14__chart" style="height: 160px">
+                            <div class="m-widget14__stat">
+                                45
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="m-widget14__legends">
+                            <div class="m-widget14__legend">
+                                <span class="m-widget14__legend-bullet m--bg-accent"></span>
+                                <span class="m-widget14__legend-text">
+                                    37% Pollo
+                                </span>
+                            </div>
+                            <div class="m-widget14__legend">
+                                <span class="m-widget14__legend-bullet m--bg-warning"></span>
+                                <span class="m-widget14__legend-text">
+                                    47% Parrillas
+                                </span>
+                            </div>
+                            <div class="m-widget14__legend">
+                                <span class="m-widget14__legend-bullet m--bg-brand"></span>
+                                <span class="m-widget14__legend-text">
+                                    19% Otros
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end:: Widgets/Authors Profit-->
+    </div>
+</div>
+
+@{
+    //var cadenaDatosDiaDailySales = "";
+    var cadenaDatosPromedioDailySales = "";
+    foreach (var dailySale in Model.VentasDiariasList)
+    {
+        //cadenaDatosDiaDailySales += "'" + dailySale.Dia + "',";
+        cadenaDatosPromedioDailySales += Convert.ToInt32(dailySale.PromedioVenta) + ",";
+    }
+}
+<script>
+    $(document).ready(function () {
+        var e = $("#dailySalesWeek");
+        if (0 !== e.length) {
+            var t = {
+                labels: [
+                    @foreach (var dailySale in Model.VentasDiariasList)
+                    {
+                        <text>
+                            '@dailySale.Dia.DayOfWeek',
+                        </text>
+                    }
+                ],
+                datasets: [
+                    {
+                        backgroundColor: mApp.getColor("success"),
+                        data: [
+                                @cadenaDatosPromedioDailySales
+                            ]
+                    },
+                    @*{
+                        backgroundColor: "#f3f3fb",
+                        data: [
+                            @foreach (var dailySale in dashboardList)
+                                {
+                                    <text>
+                                        @dailySale.PromedioVenta,
+                                    </text>
+                                }
+                            ]
+                    }*@
+                ]
+            };
+            new Chart(e,
+            {
+                type: "bar",
+                data: t,
+                options:
+                {
+                    title:
+                    {
+                        display: 1
+                    },
+                    tooltips:
+                    {
+                        intersect: 0,
+                        mode: "nearest",
+                        xPadding: 10,
+                        yPadding: 10,
+                        caretPadding: 10
+                    },
+                    legend:
+                    {
+                        display: 0
+                    },
+                    responsive: 1,
+                    maintainAspectRatio: 0,
+                    barRadius: 4,
+                    scales:
+                    {
+                        xAxes: [
+                            {
+                                display: 1,
+                                gridLines: 1,
+                                stacked: !0
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                display: 1,
+                                stacked: !0,
+                                gridLines: !1
+                            }
+                        ]
+                    },
+                    layout:
+                    {
+                        padding:
+                        {
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>

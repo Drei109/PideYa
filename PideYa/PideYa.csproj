@@ -271,7 +271,11 @@
     <Compile Include="Areas\Employee\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
     <Compile Include="Areas\Employee\Models\EmployeeViewModels.cs" />
+    <Compile Include="Areas\Manager\Controllers\insumosController.cs" />
     <Compile Include="Areas\Manager\Controllers\ProcesosController.cs" />
+    <Compile Include="Areas\Manager\Controllers\proveedorsController.cs" />
+    <Compile Include="Areas\Manager\Controllers\receta_detalleController.cs" />
+    <Compile Include="Areas\Manager\Models\ManagerDTO.cs" />
     <Compile Include="Areas\User\Models\UserViewModels.cs" />
     <Compile Include="Areas\Manager\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manager\Controllers\MesasController.cs" />
@@ -299,6 +303,10 @@
     <Compile Include="Migrations\201807031632123_added columns.Designer.cs">
       <DependentUpon>201807031632123_added columns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905301916461_proveedor insumo receta tables added.cs" />
+    <Compile Include="Migrations\201905301916461_proveedor insumo receta tables added.Designer.cs">
+      <DependentUpon>201905301916461_proveedor insumo receta tables added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\boleta_cabecera.cs" />
@@ -309,12 +317,15 @@
     <Compile Include="Models\estado_empresa.cs" />
     <Compile Include="Models\estado_usuario.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\insumo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\mesa.cs" />
     <Compile Include="Models\pedido_cabecera.cs" />
     <Compile Include="Models\pedido_detalle.cs" />
     <Compile Include="Models\plato.cs" />
     <Compile Include="Models\plato_categoria.cs" />
+    <Compile Include="Models\proveedor.cs" />
+    <Compile Include="Models\receta_detalle.cs" />
     <Compile Include="Models\restaurante.cs" />
     <Compile Include="Models\restaurante_tipo.cs" />
     <Compile Include="Models\RoleName.cs" />
@@ -659,6 +670,21 @@
     <Content Include="Areas\Employee\Views\Pedido\PedidoDetalle.cshtml" />
     <Content Include="Areas\Employee\Views\Shared\_LayoutPedido.cshtml" />
     <Content Include="Areas\Manager\Views\Procesos\Dashboard.cshtml" />
+    <Content Include="Areas\Manager\Views\proveedors\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\proveedors\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\proveedors\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\proveedors\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\proveedors\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\insumos\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\receta_detalle\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\receta_detalle\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\receta_detalle\Details.cshtml" />
+    <Content Include="Areas\Manager\Views\receta_detalle\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\receta_detalle\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PideYa - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -752,7 +778,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\User\Views\Pedido\" />
   </ItemGroup>
   <ItemGroup>
@@ -771,6 +796,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807031632123_added columns.resx">
       <DependentUpon>201807031632123_added columns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905301916461_proveedor insumo receta tables added.resx">
+      <DependentUpon>201905301916461_proveedor insumo receta tables added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

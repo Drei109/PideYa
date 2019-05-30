@@ -16,6 +16,7 @@ namespace PideYa.Models
         public plato()
         {
             pedido_detalle = new HashSet<pedido_detalle>();
+            receta_detalle = new HashSet<receta_detalle>();
         }
 
         [Key]
@@ -45,6 +46,9 @@ namespace PideYa.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pedido_detalle> pedido_detalle { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<receta_detalle> receta_detalle { get; set; }
 
         public virtual plato_categoria plato_categoria { get; set; }
 

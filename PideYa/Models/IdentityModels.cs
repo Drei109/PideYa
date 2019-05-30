@@ -47,6 +47,9 @@ namespace PideYa.Models
         public virtual DbSet<usuario_tipo> usuario_tipo { get; set; }
         public virtual DbSet<boleta_cabecera> boleta_cabecera { get; set; }
         public virtual DbSet<boleta_detalle> boleta_detalle { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
+        public virtual DbSet<insumo> insumo { get; set; }
+        public virtual DbSet<receta_detalle> receta_detalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -71,6 +74,18 @@ namespace PideYa.Models
                 .HasMany(e => e.restaurante)
                 .WithRequired(e => e.empresa)
                 .HasForeignKey(e => e.empresa_id_fk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<proveedor>()
+                .HasMany(e => e.insumo)
+                .WithRequired(e => e.proveedor)
+                .HasForeignKey(e => e.proveedor_id_fk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<insumo>()
+                .HasMany(e => e.receta_detalle)
+                .WithRequired(e => e.insumo)
+                .HasForeignKey(e => e.insumo_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<estado_empresa>()
@@ -141,6 +156,12 @@ namespace PideYa.Models
                 .HasMany(e => e.pedido_detalle)
                 .WithRequired(e => e.plato)
                 .HasForeignKey(e => e.plato_id_fk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<plato>()
+                .HasMany(e => e.receta_detalle)
+                .WithRequired(e => e.plato)
+                .HasForeignKey(e => e.plato_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<plato_categoria>()
